@@ -778,7 +778,7 @@ ORGS.forEach(([id,label,full,mono])=>{
 EDGES.forEach(([f,t,ty],i)=>{
   const s=EDGE_STYLE[ty];
   edges.push({id:"e"+i, from:f, to:t, color:{color:s.color,opacity:.9}, width:s.width, dashes:s.dashes,
-    title:EDGE_NAME[ty], smooth:{type:"continuous"}});
+    smooth:{type:"continuous"}});
 });
 
 const nodeDS = new vis.DataSet(nodes);
@@ -849,6 +849,13 @@ document.querySelectorAll("img[data-photo]").forEach(img=>{
   img.src = LOCAL[id] ? "assets/"+LOCAL[id] : (PHOTOS[id] ? wiki(PHOTOS[id]) : fb);
 });
 
+/* clear vis-network's hover tooltip if it gets stranded on screen during a scroll-driven re-layout */
+function hideStuckTooltip(){
+  document.querySelectorAll("div.vis-tooltip").forEach(el=>{ el.style.visibility="hidden"; el.style.opacity="0"; });
+}
+document.getElementById("network").addEventListener("wheel", hideStuckTooltip, {passive:true});
+window.addEventListener("scroll", hideStuckTooltip, {passive:true});
+
 /* ═══════════════ SCROLL SYNC ═══════════════ */
 const steps = [...document.querySelectorAll(".step")];
 const badge = document.getElementById("era-badge");
@@ -859,6 +866,7 @@ const io = new IntersectionObserver(entries=>{
       steps.forEach(s=>s.classList.remove("active"));
       en.target.classList.add("active");
       closeCard();
+      hideStuckTooltip();
       applyFocus(en.target.dataset.focus.split(","));
       const era = en.target.closest(".era");
       if(era){ for(const k in ERA_NAMES) if(era.classList.contains(k)) badge.textContent = ERA_NAMES[k]; }
