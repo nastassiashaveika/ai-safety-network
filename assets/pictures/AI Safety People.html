@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Safety People — Photo Gallery</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 20px 60px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #0f1115; color: #e7e9ee;
+  }
+  header { max-width: 1200px; margin: 0 auto 24px; }
+  h1 { font-size: 26px; margin: 0 0 6px; }
+  .sub { color: #9aa0ab; font-size: 14px; line-height: 1.5; }
+  .sub b { color: #cdd2db; font-weight: 600; }
+  .grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+  .card {
+    background: #171a21; border: 1px solid #262b36; border-radius: 14px;
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .photo {
+    aspect-ratio: 1 / 1; width: 100%; background: #1e222b;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .initials { font-size: 40px; font-weight: 700; color: #3a4150; letter-spacing: 1px; }
+  .spinner {
+    position: absolute; width: 22px; height: 22px; border-radius: 50%;
+    border: 3px solid #2c313d; border-top-color: #6b7688; animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .meta { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 6px; }
+  .name { font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .links { display: flex; gap: 10px; font-size: 12px; }
+  .links a { color: #7ea2ff; text-decoration: none; }
+  .links a:hover { text-decoration: underline; }
+  .tag { font-size: 11px; color: #7f8794; }
+  footer { max-width: 1200px; margin: 34px auto 0; color: #6f7683; font-size: 12px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<header>
+  <h1>AI Safety People — Photo Gallery</h1>
+  <p class="sub">
+    Photos load live from Wikipedia when you open this page, so you need an internet connection to see them.
+    Cards with a <b>Wikipedia photo</b> fill in automatically; others show initials plus a
+    <b>Search images</b> link you can click to find a face. To save any picture, right-click it in your browser and choose “Save image as…”.
+  </p>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<footer id="status">Loading…</footer>
+
+<script>
+const people = [
+  {n:"Robin Hanson", w:"Robin Hanson"},
+  {n:"Brian & Sabine Atkins", w:null, q:"Brian Atkins Sabine Atkins Singularity Institute MIRI"},
+  {n:"Chris Olah", w:null, q:"Chris Olah Anthropic interpretability"},
+  {n:"Viktoriya Krakovna", w:"Viktoriya Krakovna"},
+  {n:"John Schulman", w:"John Schulman"},
+  {n:"Wojciech Zaremba", w:"Wojciech Zaremba"},
+  {n:"Durk Kingma", w:"Diederik Kingma", q:"Durk Diederik Kingma OpenAI"},
+  {n:"Jessica Livingston", w:"Jessica Livingston"},
+  {n:"Daniela Amodei", w:"Daniela Amodei", q:"Daniela Amodei Anthropic"},
+  {n:"Paul Christiano", w:"Paul Christiano"},
+  {n:"Connor Leahy", w:"Connor Leahy"},
+  {n:"Sid Black", w:null, q:"Sid Black EleutherAI"},
+  {n:"Leo Gao", w:null, q:"Leo Gao OpenAI EleutherAI"},
+  {n:"Jared Kaplan", w:"Jared Kaplan (physicist)", q:"Jared Kaplan Anthropic physicist"},
+  {n:"Tom Brown", w:null, q:"Tom Brown Anthropic GPT-3"},
+  {n:"Jack Clark", w:null, q:"Jack Clark Anthropic policy co-founder"},
+  {n:"Sam McCandlish", w:null, q:"Sam McCandlish Anthropic"},
+  {n:"Evan Hubinger", w:null, q:"Evan Hubinger Anthropic alignment"},
+  {n:"Ryan Kidd", w:null, q:"Ryan Kidd MATS AI safety"},
+  {n:"Christian Smith", w:null, q:"Christian Smith AI safety"},
+  {n:"Nick Beckstead", w:null, q:"Nick Beckstead FTX Future Fund Open Philanthropy"},
+  {n:"Gabriel Alfour", w:null, q:"Gabriel Alfour Conjecture AI"},
+  {n:"Beth Barnes", w:null, q:"Beth Barnes METR AI safety"},
+  {n:"Jan Leike", w:"Jan Leike"},
+  {n:"Helen Toner", w:"Helen Toner"},
+  {n:"Tasha McCauley", w:"Tasha McCauley"},
+  {n:"Adam D'Angelo", w:"Adam D'Angelo"},
+  {n:"Geoffrey Irving", w:null, q:"Geoffrey Irving AI safety DeepMind UK AISI"},
+  {n:"Leopold Aschenbrenner", w:"Leopold Aschenbrenner"},
+  {n:"Richard Ngo", w:null, q:"Richard Ngo OpenAI AI safety"},
+  {n:"Scott Alexander", w:"Scott Alexander Siskind", q:"Scott Alexander Siskind Astral Codex Ten"},
+  {n:"Benjamin Todd", w:null, q:"Benjamin Todd 80000 Hours"},
+  {n:"Meia Chita-Tegmark", w:"Meia Chita-Tegmark", q:"Meia Chita-Tegmark Future of Life Institute"},
+  {n:"Anthony Aguirre", w:"Anthony Aguirre"},
+  {n:"Huw Price", w:"Huw Price"},
+  {n:"Jaime Sevilla", w:null, q:"Jaime Sevilla Epoch AI"},
+  {n:"Adam Gleave", w:null, q:"Adam Gleave FAR AI"},
+  {n:"Allan Dafoe", w:"Allan Dafoe"},
+  {n:"Rohin Shah", w:null, q:"Rohin Shah DeepMind AI safety"},
+  {n:"Jesse Hoogland", w:null, q:"Jesse Hoogland Timaeus developmental interpretability"},
+  {n:"Nora Ammann", w:null, q:"Nora Ammann PIBBSS AI safety"},
+  {n:"Elie Hassenfeld", w:"Elie Hassenfeld", q:"Elie Hassenfeld GiveWell"},
+  {n:"Julia Galef", w:"Julia Galef"},
+  {n:"Anna Salamon", w:null, q:"Anna Salamon CFAR rationality"},
+  {n:"Avital Balwit", w:null, q:"Avital Balwit Anthropic"},
+  {n:"Suchir Balaji", w:"Suchir Balaji"},
+  {n:"Nat Friedman", w:"Nat Friedman"},
+  {n:"Patrick Collison", w:"Patrick Collison"},
+  {n:"John Collison", w:"John Collison"},
+];
+
+function initials(name){
+  return name.replace(/&.*/,'').trim().split(/\s+/).slice(0,2).map(s=>s[0]||'').join('').toUpperCase();
+}
+function gimg(q){ return "https://www.google.com/search?tbm=isch&q=" + encodeURIComponent(q); }
+
+const grid = document.getElementById('grid');
+let resolved = 0, attempted = 0;
+
+people.forEach(p => {
+  const card = document.createElement('div'); card.className = 'card';
+  const photo = document.createElement('div'); photo.className = 'photo';
+  const ini = document.createElement('div'); ini.className = 'initials'; ini.textContent = initials(p.n);
+  photo.appendChild(ini);
+  card.appendChild(photo);
+
+  const meta = document.createElement('div'); meta.className = 'meta';
+  const nm = document.createElement('div'); nm.className = 'name'; nm.textContent = p.n;
+  const links = document.createElement('div'); links.className = 'links';
+  const search = document.createElement('a');
+  search.href = gimg(p.q || (p.n + " AI"));
+  search.target = "_blank"; search.rel = "noopener";
+  search.textContent = "Search images";
+  links.appendChild(search);
+  if (p.w) {
+    const wl = document.createElement('a');
+    wl.href = "https://en.wikipedia.org/wiki/" + encodeURIComponent(p.w.replace(/ /g,'_'));
+    wl.target = "_blank"; wl.rel = "noopener"; wl.textContent = "Wikipedia";
+    links.appendChild(wl);
+  }
+  meta.appendChild(nm); meta.appendChild(links);
+  card.appendChild(meta);
+  grid.appendChild(card);
+
+  if (p.w) {
+    attempted++;
+    const sp = document.createElement('div'); sp.className = 'spinner'; photo.appendChild(sp);
+    fetch("https://en.wikipedia.org/api/rest_v1/page/summary/" + encodeURIComponent(p.w))
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(j => {
+        const src = (j.originalimage && j.originalimage.source) || (j.thumbnail && j.thumbnail.source);
+        if (!src || j.type === 'disambiguation') throw 0;
+        const img = new Image();
+        img.onload = () => { photo.innerHTML = ''; photo.appendChild(img); resolved++; tick(); };
+        img.onerror = () => { sp.remove(); tick(); };
+        img.src = src;
+      })
+      .catch(() => { sp.remove(); tick(); });
+  }
+});
+
+function tick(){
+  const done = document.querySelectorAll('.spinner').length === 0;
+  document.getElementById('status').textContent =
+    resolved + " of " + people.length + " faces loaded automatically from Wikipedia. " +
+    "For the rest, click “Search images” on the card. " +
+    (done ? "Done." : "Loading…");
+}
+tick();
+</script>
+</body>
+</html>

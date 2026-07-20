@@ -37,6 +37,8 @@ header .hint b{color:var(--ink)}
 #card .role{font-size:.72rem;color:var(--green);text-transform:uppercase;letter-spacing:.05em;margin:2px 0 8px}
 #card p{font-size:.8rem;line-height:1.5;color:#33475c;clear:none}
 #card .close{position:absolute;top:8px;right:12px;cursor:pointer;color:#8aa0b5;font-size:1rem;border:none;background:none}
+#card-link{clear:both;display:inline-block;margin-top:10px;font-size:.78rem;color:var(--green);text-decoration:none;font-weight:bold}
+#card-link:hover{text-decoration:underline}
 /* ---------- narrative ---------- */
 .era{padding:0 3rem}
 .era-cover{padding:16vh 0 6vh 0}
@@ -76,6 +78,12 @@ blockquote.receipt a{color:var(--green)}
 .bubble::before{content:"";position:absolute;top:-9px;left:26px;border:9px solid transparent;border-bottom-color:#EAF1F7;border-top:0}
 .comic-note{font-family:Helvetica,Arial,sans-serif;font-size:.7rem;color:#7a90a5;margin:2px 0 .6rem}
 .comic-note a{color:var(--green)}
+/* mini timeline */
+.timeline{margin:.9rem 0;border-left:2px solid #d3e0ec;padding-left:1rem}
+.timeline .ti{position:relative;margin-bottom:.8rem;font-size:.92rem;line-height:1.5}
+.timeline .ti:last-child{margin-bottom:0}
+.timeline .ti::before{content:"";position:absolute;left:calc(-1rem - 6px);top:.45rem;width:9px;height:9px;border-radius:50%;background:var(--navy)}
+.timeline .ti b{color:var(--navy)}
 /* idea cards */
 .idea{border-left:4px solid var(--green);background:#F2FAF6;border-radius:8px;padding:.85rem 1rem;margin:.9rem 0;font-size:.9rem}
 .idea-tag{display:inline-block;font-family:Helvetica,Arial,sans-serif;font-size:.65rem;background:var(--green);color:var(--white);padding:2px 10px;border-radius:12px;letter-spacing:.1em;font-weight:bold;margin-right:6px}
@@ -123,6 +131,7 @@ footer a{color:var(--green)}
     <h3 id="card-name"></h3>
     <div class="role" id="card-role"></div>
     <p id="card-text"></p>
+    <a id="card-link" href="#" target="_blank" rel="noopener" style="display:none">Visit website ↗</a>
   </div>
 </div>
 
@@ -131,7 +140,7 @@ footer a{color:var(--green)}
 <header>
   <h1>The AI Safety Network</h1>
   <div class="sub">Hello! I built this resource as part of a hackathon. It tells the story of the AI-safety field and shows the connections running through it. It began during my job search: reading about orgs and new research, I kept seeing the same names come up — so this project tries to fill the gaps in how that story usually gets told, and to serve as an entry point into the field.</div>
-  <details class="disclaimer"><summary>Disclaimer</summary><p>The opinions and takes here are entirely my own. The research was done with the assistance of Claude, many conversations, and a lot of online reading. It's a work in progress — one day I'd love to scrape X for all the hot goss. This was built during a hackathon hosted by BlueDot, after living as a pet project of mine for quite a while.</p></details>
+  <details class="disclaimer"><summary>Disclaimer</summary><p>The opinions and takes here are entirely my own. The research was done with the assistance of Claude, many conversations, and a lot of online reading. It's a work in progress — one day I'd love to scrape X for all the hot goss. This was built during a hackathon hosted by BlueDot, after living as a pet project of mine for quite a while. Questions, corrections, or a face/logo I've missed? Reach out: <a href="mailto:nastassiashaveika@gmail.com">nastassiashaveika@gmail.com</a>.</p></details>
   <div class="hint">Scroll to move through time. The map re-clusters with the story.<br>Click any <b>bold name</b> or node for a backstory. Hover <span class="g" data-tip="Like this. Acronyms get little explanations.">dotted terms</span> for definitions.</div>
 </header>
 
@@ -151,9 +160,9 @@ footer a{color:var(--green)}
 <div class="src">👉 <a href="https://extropians.boydkane.com/" target="_blank">Explore the Extropians Archive Index</a> · <a href="https://www.lesswrong.com/posts/hTnhwX9kr6GHgFrp4/an-interactive-version-of-the-extropians-mailing-list" target="_blank">interactive version on LessWrong</a></div>
 </div>
 
-<div class="step" data-focus="bostrom,wta,extropians">
+<div class="step" data-focus="bostrom,pearce,wta,extropians">
 <div class="yr">1998</div>
-<p><span class="e" data-id="bostrom">Bostrom</span> and philosopher David Pearce found the <span class="e" data-id="wta">World Transhumanist Association</span> — the mailing-list scene gets its first institution. The WTA is a membership nonprofit advocating the ethical use of technology to overcome human limits: aging, disease, cognitive constraints. Its ideology is techno-optimist humanism — the future should be radically better, on purpose. Rebranded as <b>Humanity+</b> in 2008 and based in the US, it still exists today, running conferences and publications. Its role in this story is simple: it gave the scene its first real institution — and gave Bostrom practice building them.</p>
+<p><span class="e" data-id="bostrom">Bostrom</span> and philosopher <span class="e" data-id="pearce">David Pearce</span> found the <span class="e" data-id="wta">World Transhumanist Association</span> — the mailing-list scene gets its first institution. The WTA is a membership nonprofit advocating the ethical use of technology to overcome human limits: aging, disease, cognitive constraints. Its ideology is techno-optimist humanism — the future should be radically better, on purpose. Rebranded as <b>Humanity+</b> in 2008 and based in the US, it still exists today, running conferences and publications. Its role in this story is simple: it gave the scene its first real institution — and gave Bostrom practice building them.</p>
 </div>
 
 <div class="step" data-focus="yudkowsky,atkins,siai">
@@ -194,31 +203,33 @@ footer a{color:var(--green)}
 
 <div class="step" data-focus="hassabis,legg,suleyman,deepmind,thiel,yudkowsky">
 <div class="yr">2010</div>
-<p><span class="e" data-id="hassabis">Demis Hassabis</span>, <span class="e" data-id="legg">Shane Legg</span>, and <span class="e" data-id="suleyman">Mustafa Suleyman</span> found <span class="e" data-id="deepmind">DeepMind</span> in London. The critical initial funding check comes directly from <span class="e" data-id="thiel">Peter Thiel</span> — secured because of a personal introduction <span class="e" data-id="yudkowsky">Yudkowsky</span> made at the Singularity Summit.</p>
+<p><span class="e" data-id="hassabis">Demis Hassabis</span>, <span class="e" data-id="legg">Shane Legg</span>, and <span class="e" data-id="suleyman">Mustafa Suleyman</span> found <span class="e" data-id="deepmind">DeepMind</span> in London. They knew each other well before the company. Hassabis, a chess prodigy and games designer, met Legg when both were postdocs at UCL's Gatsby Computational Neuroscience Unit, where Legg's PhD work tried to define machine intelligence formally. Suleyman, a policy-and-community entrepreneur who had dropped out of Oxford, was Hassabis's childhood friend through family. Neuroscience, theory, and operations, in three people who already trusted each other.</p>
+<p>The critical initial funding check comes from <span class="e" data-id="thiel">Peter Thiel</span>, secured because of a personal introduction <span class="e" data-id="yudkowsky">Yudkowsky</span> made at the Singularity Summit.</p>
 <p><b>The fanfic recruiter:</b> simultaneously, Yudkowsky begins publishing <a href="https://hpmor.com/" target="_blank">Harry Potter and the Methods of Rationality</a>, a fanfiction phenomenon that becomes the field's single most effective cultural recruiting tool for young software engineers.</p>
 </div>
 
 <div class="step" data-focus="ord,macaskill,gwwc,todd,eightyk,fhi">
 <div class="yr">2009&ndash;11 — The EA institutions</div>
-<p>In Oxford, philosophers <span class="e" data-id="ord">Toby Ord</span> and <span class="e" data-id="macaskill">Will MacAskill</span> found <span class="e" data-id="gwwc">Giving What We Can</span> (2009), a pledge to give 10% of your income to the most effective charities. Two years later, MacAskill and <span class="e" data-id="todd">Benjamin Todd</span> found <span class="e" data-id="eightyk">80,000 Hours</span>, which applies the same logic to careers. Together these become the institutional core of <span class="g" data-tip="Effective Altruism — Oxford-born movement about doing the most provable good per dollar (or career hour). Funds and staffs much of this field.">effective altruism</span>.</p>
+<p>In Oxford, philosophers <span class="e" data-id="ord">Toby Ord</span> and <span class="e" data-id="macaskill">Will MacAskill</span> found <span class="e" data-id="gwwc">Giving What We Can</span> (2009), a pledge to give 10% of your income to the most effective charities. Two years later, MacAskill and <span class="e" data-id="todd">Benjamin Todd</span> found <span class="e" data-id="eightyk">80,000 Hours</span>, which applies the same logic to careers. Todd had met MacAskill through Ord while researching how to pick a high-impact career, and the three sit at the center of the same small Oxford circle. Together these orgs become the institutional core of <span class="g" data-tip="Effective Altruism — Oxford-born movement about doing the most provable good per dollar (or career hour). Funds and staffs much of this field.">effective altruism</span>.</p>
 <p>80,000 Hours later ranks AI safety among its top recommended career paths, making it one of the field's biggest talent funnels. Ord, also an <span class="e" data-id="fhi">FHI</span> researcher, becomes one of existential risk's most credible mainstream voices.</p>
 </div>
 
-<div class="step" data-focus="tuna,moskovitz,goodventures,openphil">
-<div class="yr">2011</div>
-<p><span class="e" data-id="tuna">Cari Tuna</span>, a former Wall Street Journal reporter, and Facebook co-founder <span class="e" data-id="moskovitz">Dustin Moskovitz</span> met on a blind date in 2009 and later married. In 2011 they establish <span class="e" data-id="goodventures">Good Ventures</span>, pledging to give away nearly all of their fortune along effective-altruist lines, working in lockstep with GiveWell Labs, the precursor to <span class="e" data-id="openphil">Open Philanthropy</span>. AI risk becomes one of its top cause areas, and most of the money in the rest of this story arrives through this lane.</p>
+<div class="step" data-focus="hassenfeld,karnofsky,givewell,tuna,moskovitz,goodventures,openphil">
+<div class="yr">2007&ndash;11 — The money machine</div>
+<p>First the evaluator. In 2007, two young Bridgewater Associates analysts, <span class="e" data-id="karnofsky">Holden Karnofsky</span> and <span class="e" data-id="hassenfeld">Elie Hassenfeld</span>, quit the hedge fund to start <span class="e" data-id="givewell">GiveWell</span>, applying the same rigor they used on investments to the question of which charities actually do the most good per dollar.</p>
+<p>Then the money. <span class="e" data-id="tuna">Cari Tuna</span>, a former Wall Street Journal reporter, and Facebook co-founder <span class="e" data-id="moskovitz">Dustin Moskovitz</span> (married since 2013) found <span class="e" data-id="goodventures">Good Ventures</span> in 2011 and partner with GiveWell to give away nearly all of their fortune. That partnership becomes <span class="e" data-id="openphil">Open Philanthropy</span>, which spins out in 2017. AI risk becomes one of its largest cause areas, and most of the funding in the rest of this story flows through this one lane.</p>
 </div>
 
-<div class="step" data-focus="tallinn,cser,cfar,olah,thiel,siai,altman,yc">
+<div class="step" data-focus="tallinn,cser,cfar,galef,salamon,olah,thiel,siai,altman,yc">
 <div class="yr">2012&ndash;13</div>
-<p>In 2012, <span class="e" data-id="tallinn">Jaan Tallinn</span> co-founds the <span class="e" data-id="cser">Centre for the Study of Existential Risk</span> (<span class="g" data-tip="Centre for the Study of Existential Risk, University of Cambridge, 2012.">CSER</span>) in Cambridge with philosopher <span class="e" data-id="price">Huw Price</span> and Astronomer Royal <span class="e" data-id="rees">Martin Rees</span>. It starts with a taxi conversation: at a 2011 conference in Copenhagen, Price asked Tallinn what he did for a living, and Tallinn explained he spent much of his time trying to get people to take AI risk seriously. Price later brought in Rees, and the three met properly when Tallinn visited Cambridge to lecture — that meeting is where they agreed to found CSER. The same year, the <span class="e" data-id="cfar">Center for Applied Rationality</span> launches in Berkeley. Its workshops train a large share of future safety researchers and anchor the community physically in Berkeley, where MIRI already sits and where CHAI, Redwood, MATS, and Constellation later cluster. A young researcher named <span class="e" data-id="olah">Chris Olah</span> receives a <span class="e" data-id="thiel">Thiel</span> Fellowship.</p>
+<p>In 2012, <span class="e" data-id="tallinn">Jaan Tallinn</span> co-founds the <span class="e" data-id="cser">Centre for the Study of Existential Risk</span> (<span class="g" data-tip="Centre for the Study of Existential Risk, University of Cambridge, 2012.">CSER</span>) in Cambridge with philosopher <span class="e" data-id="price">Huw Price</span> and Astronomer Royal <span class="e" data-id="rees">Martin Rees</span>. It starts with a taxi conversation: at a 2011 conference in Copenhagen, Price asked Tallinn what he did for a living, and Tallinn explained he spent much of his time trying to get people to take AI risk seriously. Price later brought in Rees, and the three met properly when Tallinn visited Cambridge to lecture — that meeting is where they agreed to found CSER. The same year, writer <span class="e" data-id="galef">Julia Galef</span> and mathematician <span class="e" data-id="salamon">Anna Salamon</span> launch the <span class="e" data-id="cfar">Center for Applied Rationality</span> in Berkeley, an offshoot of the LessWrong community that shares an office with MIRI. Its workshops train a large share of future safety researchers and anchor the community physically in Berkeley, where CHAI, Redwood, MATS, and Constellation later cluster. A young researcher named <span class="e" data-id="olah">Chris Olah</span> receives a <span class="e" data-id="thiel">Thiel</span> Fellowship.</p>
 <p>In 2013, <span class="e" data-id="siai">SIAI</span> officially rebrands as the <span class="g" data-tip="Machine Intelligence Research Institute — SIAI's name from 2013 onward.">MIRI</span>, while <span class="e" data-id="altman">Sam Altman</span> takes the helm at <span class="e" data-id="yc">Y Combinator</span> under Thiel's influence.</p>
 </div>
 
 <div class="step scene" data-focus="bostrom,musk,gates,hawking,google,deepmind,fli,tegmark,tallinn,krakovna,buterin,aguirre,chita,cser">
 <span class="scene-tag">SCENE</span>
 <div class="yr">2014 — The hinge year</div>
-<p><b>The book:</b> <span class="e" data-id="bostrom">Bostrom</span> publishes <em>Superintelligence</em>. <span class="e" data-id="musk">Elon Musk</span>, <span class="e" data-id="gates">Bill Gates</span>, and <span class="e" data-id="hawking">Stephen Hawking</span> immediately begin quoting its dark warnings in public.</p>
+<p><b>The book:</b> <span class="e" data-id="bostrom">Bostrom</span> publishes <em><a href="https://global.oup.com/academic/product/superintelligence-9780199678112" target="_blank">Superintelligence</a></em>. <span class="e" data-id="musk">Elon Musk</span>, <span class="e" data-id="gates">Bill Gates</span>, and <span class="e" data-id="hawking">Stephen Hawking</span> immediately begin quoting its dark warnings in public.</p>
 <div class="comic">
   <div class="panel"><img data-photo="musk" alt="Musk"><div class="pname">Musk</div><div class="bubble">"We need to be super careful with AI. Potentially more dangerous than nukes."</div></div>
   <div class="panel"><img data-photo="gates" alt="Gates"><div class="pname">Gates</div><div class="bubble">"I am in the camp that is concerned about super intelligence."</div></div>
@@ -227,7 +238,7 @@ footer a{color:var(--green)}
 <div class="comic-note">all three quotes are real — <a href="https://x.com/elonmusk/status/495759307346952192" target="_blank">Musk, X, Aug 2014</a> · <a href="https://qz.com/335768/bill-gates-joins-elon-musk-and-stephen-hawking-in-saying-artificial-intelligence-is-scary" target="_blank">Gates, Reddit AMA 2015</a> · <a href="https://www.bbc.com/news/technology-30290540" target="_blank">Hawking, BBC 2014</a></div>
 <div class="idea"><span class="idea-tag">IDEAS</span><em>Superintelligence</em> also hands the field its core arguments, still anchoring most safety agendas today: the <b>orthogonality thesis</b> (intelligence and goals are independent — a superintelligence can want anything, including paperclips), <b>instrumental convergence</b> (almost any goal implies grabbing resources and resisting shutdown), and the <b>treacherous turn</b> (a misaligned AI behaves — until it's strong enough not to).</div>
 <p><b>The acquisition:</b> <span class="e" data-id="google">Google</span> buys <span class="e" data-id="deepmind">DeepMind</span> for over $500M. As a strict condition of sale, DeepMind demands an independent AI Ethics Board. Historical note: the board famously never met a single time.</p>
-<p><b>The new guard:</b> <span class="e" data-id="tegmark">Max Tegmark</span>, <span class="e" data-id="tallinn">Jaan Tallinn</span>, <span class="e" data-id="krakovna">Viktoriya Krakovna</span>, <span class="e" data-id="aguirre">Anthony Aguirre</span>, and <span class="e" data-id="chita">Meia Chita-Tegmark</span> found the <span class="e" data-id="fli">Future of Life Institute</span> (<span class="g" data-tip="Future of Life Institute, 2014 — org behind the 2023 pause letter.">FLI</span>). How they knew each other: Tegmark and Aguirre had run the Foundational Questions Institute together for a decade. Meia is Tegmark's wife. Krakovna was a Harvard statistics PhD active in Boston's rationalist community, and Tallinn arrived through the CSER network he had already co-founded. <span class="e" data-id="buterin">Vitalik Buterin</span> joins the ecosystem as a Thiel Fellow.</p>
+<p><b>The new guard:</b> <span class="e" data-id="tegmark">Max Tegmark</span>, <span class="e" data-id="tallinn">Jaan Tallinn</span>, <span class="e" data-id="krakovna">Viktoriya Krakovna</span>, <span class="e" data-id="aguirre">Anthony Aguirre</span>, and <span class="e" data-id="chita">Meia Chita-Tegmark</span> found the <span class="e" data-id="fli">Future of Life Institute</span> (<span class="g" data-tip="Future of Life Institute, 2014 — org behind the 2023 pause letter.">FLI</span>). How they knew each other: Tegmark and Aguirre had run the Foundational Questions Institute together for a decade; Chita-Tegmark, a psychology researcher, and Tegmark are partners. Krakovna, a Harvard statistics PhD, was active in Boston's rationalist community, and Tallinn arrived through the CSER network he had already co-founded. <span class="e" data-id="buterin">Vitalik Buterin</span> joins the ecosystem as a Thiel Fellow.</p>
 <div class="src">Proof: <a href="https://qz.com/335768/bill-gates-joins-elon-musk-and-stephen-hawking-in-saying-artificial-intelligence-is-scary" target="_blank">Gates joins Musk &amp; Hawking (Reddit AMA)</a> · <a href="https://en.wikipedia.org/wiki/Google_DeepMind" target="_blank">the acquisition &amp; ethics-board condition</a></div>
 </div>
 </section>
@@ -244,8 +255,13 @@ footer a{color:var(--green)}
 <div class="step scene" data-focus="openai,altman,musk,brockman,sutskever,schulman,karpathy,zaremba,kingma,thiel,hoffman,livingston,yc,bengio,abbeel">
 <span class="scene-tag">SCENE</span>
 <div class="yr">Dec 2015 — OpenAI founded</div>
-<p>Recognizing Google's grip on DeepMind talent, <span class="e" data-id="altman">Sam Altman</span>, <span class="e" data-id="musk">Elon Musk</span>, <span class="e" data-id="brockman">Greg Brockman</span>, and <span class="e" data-id="sutskever">Ilya Sutskever</span> found <span class="e" data-id="openai">OpenAI</span> as a direct counterweight, with <span class="e" data-id="schulman">John Schulman</span>, <span class="e" data-id="karpathy">Andrej Karpathy</span>, <span class="e" data-id="zaremba">Wojciech Zaremba</span>, and <span class="e" data-id="kingma">Durk Kingma</span> on the founding research team. Backed by $1B in pledges from Musk, <span class="e" data-id="thiel">Thiel</span>, <span class="e" data-id="hoffman">Reid Hoffman</span>, and <span class="e" data-id="livingston">Jessica Livingston</span>, it is structured as a non-profit meant to share safety benefits freely.</p>
-<p>How they met: Altman knew Brockman through <span class="e" data-id="yc">Y Combinator</span>, where Brockman was CTO of Stripe, one of its star companies; Musk and Altman were already friends. The plan came together over a July 2015 dinner at the Rosewood Hotel on Sand Hill Road, by Brockman's own account of the founding. Brockman then met with <span class="e" data-id="bengio">Yoshua Bengio</span> to draw up a shortlist of strong young researchers, from which the first hires were made: Sutskever came from Google Brain, <span class="e" data-id="schulman">Schulman</span> from <span class="e" data-id="abbeel">Pieter Abbeel</span>'s Berkeley lab, and Karpathy, Zaremba, and Kingma from the same tight deep-learning circle spanning Google and academia.</p>
+<p>Google now owned <span class="e" data-id="deepmind">DeepMind</span> and most of the field's talent. <span class="e" data-id="altman">Sam Altman</span> and <span class="e" data-id="musk">Elon Musk</span>, already friends and both worried about that, decided to build a counterweight. Here is how it actually came together:</p>
+<div class="timeline">
+  <div class="ti"><b>Early 2015.</b> Altman and Musk agree a non-profit AI lab is needed. Altman, president of <span class="e" data-id="yc">Y Combinator</span>, knows exactly who to call.</div>
+  <div class="ti"><b>July 2015.</b> The plan is set over a dinner at the Rosewood Hotel on Sand Hill Road. <span class="e" data-id="brockman">Greg Brockman</span>, the former CTO of Stripe (a top YC company), is brought in to build the team.</div>
+  <div class="ti"><b>Autumn 2015.</b> Brockman asks deep-learning pioneer <span class="e" data-id="bengio">Yoshua Bengio</span> for a shortlist of the best young researchers, then recruits them one by one: <span class="e" data-id="sutskever">Ilya Sutskever</span> from Google Brain (the hardest and most important hire), <span class="e" data-id="schulman">John Schulman</span> from <span class="e" data-id="abbeel">Pieter Abbeel</span>'s Berkeley lab, and <span class="e" data-id="karpathy">Andrej Karpathy</span>, <span class="e" data-id="zaremba">Wojciech Zaremba</span>, and <span class="e" data-id="kingma">Durk Kingma</span> from the same tight circle across Google and academia.</div>
+  <div class="ti"><b>Dec 11, 2015.</b> <span class="e" data-id="openai">OpenAI</span> launches publicly, backed by $1B in pledges from Musk, <span class="e" data-id="thiel">Thiel</span>, <span class="e" data-id="hoffman">Reid Hoffman</span>, and <span class="e" data-id="livingston">Jessica Livingston</span>, structured as a non-profit meant to share its work freely.</div>
+</div>
 <div class="comic">
   <div class="panel"><img data-photo="altman" alt="Altman"><div class="pname">Altman &amp; Brockman</div><div class="bubble">"…advance digital intelligence in the way that is most likely to benefit humanity, unconstrained by a need to generate financial return."</div></div>
   <div class="panel"><img data-photo="musk" alt="Musk"><div class="pname">Musk</div><div class="bubble">"With artificial intelligence we are summoning the demon."</div></div>
@@ -256,14 +272,14 @@ footer a{color:var(--green)}
 <div class="step" data-focus="russell,chai,openphil,shah,gleave,deepmind,far">
 <div class="yr">2016</div>
 <p>Academia formalizes its involvement: <span class="e" data-id="russell">Stuart Russell</span> founds the <span class="e" data-id="chai">Center for Human-Compatible AI</span> (<span class="g" data-tip="Center for Human-Compatible AI, UC Berkeley, 2016 — funded by Open Philanthropy.">CHAI</span>) at Berkeley using <span class="e" data-id="openphil">Open Philanthropy</span> capital.</p>
-<p>What comes out of CHAI: "assistance games," the formal agenda where an AI stays uncertain about human goals and defers to us; Russell's 2019 book <em>Human Compatible</em>; and a generation of alumni. <span class="e" data-id="shah">Rohin Shah</span> goes on to lead AGI-safety work at <span class="e" data-id="deepmind">DeepMind</span>, and <span class="e" data-id="gleave">Adam Gleave</span> to found <span class="e" data-id="far">FAR AI</span>.</p>
+<p>What comes out of CHAI: "assistance games," the formal agenda where an AI stays uncertain about human goals and defers to us; Russell's 2019 book <em><a href="https://en.wikipedia.org/wiki/Human_Compatible" target="_blank">Human Compatible</a></em>; and a generation of alumni. <span class="e" data-id="shah">Rohin Shah</span> goes on to lead AGI-safety work at <span class="e" data-id="deepmind">DeepMind</span>, and <span class="e" data-id="gleave">Adam Gleave</span> to found <span class="e" data-id="far">FAR AI</span>.</p>
 </div>
 
 <div class="step scene" data-focus="openphil,karnofsky,openai,damodei">
 <span class="scene-tag">SCENE</span>
 <div class="yr">2017 — The strategic node link</div>
 <p><span class="e" data-id="openphil">Open Philanthropy</span> officially spins out of GiveWell and injects a massive $30 million grant directly into <span class="e" data-id="openai">OpenAI</span>. Open Phil CEO <span class="e" data-id="karnofsky">Holden Karnofsky</span> takes a seat on OpenAI's board.</p>
-<p>The same year, Karnofsky marries <span class="e" data-id="damodei">Daniela Amodei</span> — then a VP at OpenAI. Funding relationships and personal ones now run through the same small group of people; a yellow edge on the map marks it.</p>
+<p>The same year, Karnofsky and <span class="e" data-id="damodei">Daniela Amodei</span>, then a VP at OpenAI and later Anthropic's president, marry. The field's funding and its labs are now connected by family ties, not just grants.</p>
 <div class="comic">
   <div class="panel"><img data-photo="karnofsky" alt="Karnofsky"><div class="pname">Karnofsky</div><div class="bubble">Runs Open Phil. Just wired OpenAI $30M. Sits on its board.</div></div>
   <div class="panel"><img data-photo="damodei" alt="Daniela Amodei"><div class="pname">Daniela Amodei</div><div class="bubble">VP at OpenAI. Future co-founder and president of Anthropic.</div></div>
@@ -273,7 +289,7 @@ footer a{color:var(--green)}
 
 <div class="step" data-focus="christiano,openai,olah,distill">
 <div class="yr">2017</div>
-<p><b>The technical spark.</b> <span class="e" data-id="olah">Chris Olah</span> launches the technical publication <span class="e" data-id="distill">Distill</span>. Concurrently, <span class="e" data-id="christiano">Paul Christiano</span> and OpenAI engineers publish the seminal paper on <span class="g" data-tip="Reinforcement Learning from Human Feedback — the alignment technique that later makes ChatGPT possible.">RLHF</span> — the specific alignment technique that will later make conversational AI commercially viable.</p>
+<p><b>The technical spark.</b> <span class="e" data-id="olah">Chris Olah</span> launches the technical publication <span class="e" data-id="distill">Distill</span> (which goes on indefinite hiatus in 2021). Concurrently, <span class="e" data-id="christiano">Paul Christiano</span> and OpenAI engineers publish the seminal paper on <span class="g" data-tip="Reinforcement Learning from Human Feedback — the alignment technique that later makes ChatGPT possible.">RLHF</span> — the specific alignment technique that will later make conversational AI commercially viable.</p>
 <div class="idea"><span class="idea-tag">IDEA</span><b>RLHF</b>, in one breath: instead of hand-writing a goal, you train a reward model from human preference comparisons ("this answer is better than that one"), then optimize the AI against it. Born as an <em>alignment</em> technique; became the commercial engine of chatbots. Alongside it, <b>interpretability</b> — Olah's line of work — asks the complementary question: what is actually going on inside the network?</div>
 <div class="src">Proof: <a href="https://arxiv.org/abs/1706.03741" target="_blank">Christiano et al., 2017 (arXiv:1706.03741)</a> · <a href="https://distill.pub/" target="_blank">Distill</a></div>
 </div>
@@ -281,7 +297,7 @@ footer a{color:var(--green)}
 <div class="step" data-focus="musk,openai,olah,shlegeris,siai,microsoft,cset,openphil">
 <div class="yr">2018&ndash;19</div>
 <p>In 2018, <span class="e" data-id="musk">Elon Musk</span> dramatically exits the OpenAI board following a failed internal control fight. <span class="e" data-id="olah">Chris Olah</span> joins <span class="e" data-id="openai">OpenAI</span>; <span class="e" data-id="shlegeris">Buck Shlegeris</span> joins <span class="e" data-id="siai">MIRI</span>.</p>
-<p><b>The original sin:</b> in 2019, OpenAI makes a historic structural shift — a capped-profit arm and a $1 billion investment from <span class="e" data-id="microsoft">Microsoft</span>. The open-source non-profit ideal is abandoned; OpenAI stages a coordinated media campaign, refusing to release GPT-2 because it is "too dangerous for public consumption."</p>
+<p><b>The commercial turn:</b> in 2019, OpenAI restructures with a capped-profit arm and takes a $1 billion investment from <span class="e" data-id="microsoft">Microsoft</span>. The open-source non-profit ideal gives way; OpenAI also holds back the full GPT-2 model for several months, calling it too risky to release, a decision widely debated at the time.</p>
 <p><b>The countermoves:</b> <span class="e" data-id="openphil">Open Philanthropy</span> funds <span class="e" data-id="cset">CSET</span> with a historic ~$55M grant — its largest ever at the time — and grants MIRI $2.1M.</p>
 </div>
 
@@ -289,15 +305,15 @@ footer a{color:var(--green)}
 <div class="yr">2020</div>
 <p>In July, <span class="e" data-id="leahy">Connor Leahy</span>, <span class="e" data-id="black">Sid Black</span>, and <span class="e" data-id="gao">Leo Gao</span> form <span class="e" data-id="eleuther">EleutherAI</span> as an organic Discord server during pandemic lockdowns, to open-source models and bypass corporate gates. GPT-3 ships the same summer.</p>
 <p>EleutherAI's role in this story is bigger than its size. Its GPT-Neo and GPT-J models and the Pile dataset prove that frontier-adjacent AI won't stay locked inside labs. The Discord also becomes a talent seedbed: <span class="e" data-id="leahy">Leahy</span> and <span class="e" data-id="black">Black</span> later found Conjecture, <span class="e" data-id="gao">Gao</span> later joins OpenAI's interpretability work, and much of the open-source interpretability community traces back to it.</p>
-<p>The same year, <span class="e" data-id="ord">Toby Ord</span> publishes <em>The Precipice</em> — existential risk's most respectable mainstream treatment yet. And, disillusioned by OpenAI's commercial pivot under Microsoft, siblings <span class="e" data-id="dario">Dario</span> and <span class="e" data-id="damodei">Daniela Amodei</span> quietly prepare to walk out.</p>
+<p>The same year, <span class="e" data-id="ord">Toby Ord</span> publishes <em><a href="https://theprecipice.com/" target="_blank">The Precipice</a></em>, existential risk's most respectable mainstream treatment yet. And, disillusioned by OpenAI's commercial pivot under Microsoft, siblings <span class="e" data-id="dario">Dario</span> and <span class="e" data-id="damodei">Daniela Amodei</span> quietly prepare to walk out.</p>
 </div>
 
-<div class="step scene" data-focus="anthropic,dario,damodei,olah,kaplan,brown,clark,mccandlish,tallinn,moskovitz,christiano,arc,shlegeris,redwood,mats,hubinger,buterin,fli,kidd,csmith,siai,metr">
+<div class="step scene" data-focus="anthropic,dario,damodei,olah,kaplan,brown,clark,mccandlish,tallinn,moskovitz,christiano,arc,shlegeris,redwood,mats,hubinger,buterin,fli,kidd,csmith,siai,metr,seri,lisa">
 <span class="scene-tag">SCENE</span>
 <div class="yr">2021 — The great split</div>
 <p>The core talent pool fractures across a dozen new vectors in an 18-month span.</p>
 <p><b>The split:</b> <span class="e" data-id="dario">Dario</span> and <span class="e" data-id="damodei">Daniela Amodei</span> leave OpenAI with a core team of seven, including <span class="e" data-id="olah">Chris Olah</span>, <span class="e" data-id="kaplan">Jared Kaplan</span>, <span class="e" data-id="brown">Tom Brown</span>, <span class="e" data-id="clark">Jack Clark</span>, and <span class="e" data-id="mccandlish">Sam McCandlish</span>, to found <span class="e" data-id="anthropic">Anthropic</span>. They all knew each other from inside OpenAI: Dario led the GPT-2/GPT-3 research organization, where Brown and McCandlish ran scaling, Olah ran interpretability, Clark ran policy, and Daniela, his sister, ran operations. Kaplan, a Johns Hopkins theoretical physicist, had joined OpenAI in 2019 and co-authored the scaling-laws paper with Dario's team. <span class="e" data-id="tallinn">Jaan Tallinn</span> leads their $124 million Series A; <span class="e" data-id="moskovitz">Moskovitz</span> joins.</p>
-<p><b>The spin-offs:</b> <span class="e" data-id="christiano">Paul Christiano</span> leaves OpenAI to form the <span class="e" data-id="arc">Alignment Research Center</span> (<span class="g" data-tip="Alignment Research Center, founded 2021 by Paul Christiano.">ARC</span>) — a small theory group working on aligning systems smarter than their overseers. <span class="e" data-id="shlegeris">Buck Shlegeris</span> and the MIRI contingent launch <span class="e" data-id="redwood">Redwood Research</span> — an applied-alignment nonprofit, now best known for "AI control": techniques for safely using models you don't fully trust. <span class="e" data-id="mats">MATS</span> launches (as SERI MATS) with <span class="e" data-id="hubinger">Evan Hubinger</span> — then a MIRI research fellow, later Anthropic's alignment stress-testing lead — mentoring the first scholars; <span class="e" data-id="kidd">Ryan Kidd</span> and <span class="e" data-id="csmith">Christian Smith</span> later scale it into an independent org. MATS scholars arrive mostly through the LessWrong/EA university pipeline, get mentored by researchers at <span class="e" data-id="redwood">Redwood</span>, <span class="e" data-id="siai">MIRI</span>, and <span class="e" data-id="anthropic">Anthropic</span>, and alumni flow back into those same orgs, plus <span class="e" data-id="metr">METR</span>. And <span class="e" data-id="buterin">Vitalik Buterin</span> donates millions in ETH (and reportedly SHIB) into <span class="e" data-id="fli">FLI</span>/MIRI reserves.</p>
+<p><b>The spin-offs:</b> <span class="e" data-id="christiano">Paul Christiano</span> leaves OpenAI to form the <span class="e" data-id="arc">Alignment Research Center</span> (<span class="g" data-tip="Alignment Research Center, founded 2021 by Paul Christiano.">ARC</span>) — a small theory group working on aligning systems smarter than their overseers. <span class="e" data-id="shlegeris">Buck Shlegeris</span> and the MIRI contingent launch <span class="e" data-id="redwood">Redwood Research</span> — an applied-alignment nonprofit, now best known for "AI control": techniques for safely using models you don't fully trust. <span class="e" data-id="mats">MATS</span> starts as SERI MATS, a joint project of the <span class="e" data-id="seri">Stanford Existential Risks Initiative</span> and the Berkeley Existential Risk Initiative, with <span class="e" data-id="hubinger">Evan Hubinger</span> (a MIRI fellow, later Anthropic's alignment stress-testing lead) mentoring the first scholars. It is run by two physicists who came up through that same existential-risk student world: <span class="e" data-id="kidd">Ryan Kidd</span> (physics PhD, Queensland) and <span class="e" data-id="csmith">Christian Smith</span> (particle physics at Stanford, research at CERN), who later spin it out as an independent org and co-found the <span class="e" data-id="lisa">London Initiative for Safe AI</span>. The pattern is a loop: scholars arrive through the LessWrong/EA university pipeline, get mentored by researchers at <span class="e" data-id="redwood">Redwood</span>, <span class="e" data-id="siai">MIRI</span>, and <span class="e" data-id="anthropic">Anthropic</span>, and alumni flow back into those same orgs, plus <span class="e" data-id="metr">METR</span>. And <span class="e" data-id="buterin">Vitalik Buterin</span> donates millions in ETH (and reportedly SHIB) into <span class="e" data-id="fli">FLI</span> and MIRI reserves.</p>
 <div class="comic">
   <div class="panel"><img data-photo="dario" alt="Dario Amodei"><div class="pname">Dario Amodei</div><div class="bubble">"…build more reliable, interpretable, and steerable AI systems."</div></div>
   <div class="panel"><img data-photo="tallinn" alt="Tallinn"><div class="pname">Tallinn</div><div class="bubble">Leads the $124M Series A. The Skype engineer who emailed Yudkowsky in 2009 now bankrolls the safety lab.</div></div>
@@ -315,13 +331,27 @@ footer a{color:var(--green)}
 <div class="step" data-focus="sbf,macaskill,ftx,beckstead,conjecture,leahy,black,alfour,karpathy,barnes,metr,bluedot,ngo,openphil">
 <div class="yr">Early 2022</div>
 <p><span class="e" data-id="sbf">Sam Bankman-Fried</span> is not new to this world: an MIT physics graduate and Jane Street trader, he was recruited into effective altruism's "earning to give" path by philosopher <span class="e" data-id="macaskill">Will MacAskill</span>, and built FTX explicitly to fund EA causes. Now his <span class="e" data-id="ftx">FTX Future Fund</span> launches under <span class="e" data-id="beckstead">Nick Beckstead</span>, committing over $160 million to AI-safety initiatives within a few months.</p>
-<p><span class="e" data-id="leahy">Connor Leahy</span>, <span class="e" data-id="black">Sid Black</span>, and <span class="e" data-id="alfour">Gabriel Alfour</span> use the boom to found <span class="e" data-id="conjecture">Conjecture</span>, a London startup that is the EleutherAI founders' change of heart. Having open-sourced large models, they now argue that was a mistake, and try to build bounded, understandable systems instead ("Cognitive Emulation"). It matters as the first venture-funded company whose product is safety itself. Investors include <span class="e" data-id="karpathy">Karpathy</span>, Nat Friedman, the Collison brothers, and SBF. Meanwhile <span class="e" data-id="barnes">Beth Barnes</span> leaves OpenAI to establish <span class="e" data-id="metr">ARC Evals</span>, to test what models can actually do.</p>
+<p><span class="e" data-id="leahy">Connor Leahy</span>, <span class="e" data-id="black">Sid Black</span>, and <span class="e" data-id="alfour">Gabriel Alfour</span> use the boom to found <span class="e" data-id="conjecture">Conjecture</span>, a London startup that is the EleutherAI founders' change of heart. Having open-sourced large models, they now argue that was a mistake, and try to build bounded, understandable systems instead ("Cognitive Emulation"). It matters as the first venture-funded company whose product is safety itself. Its investors are a who's-who of tech: <span class="e" data-id="karpathy">Andrej Karpathy</span>, <span class="e" data-id="friedman">Nat Friedman</span> (former GitHub CEO), the <span class="e" data-id="collison">Collison brothers</span> (founders of Stripe, where Greg Brockman was CTO before OpenAI), and <span class="e" data-id="sbf">SBF</span>. Meanwhile <span class="e" data-id="barnes">Beth Barnes</span> leaves OpenAI to establish <span class="e" data-id="metr">ARC Evals</span>, to test what models can actually do.</p>
 <p>The same year, <span class="e" data-id="bluedot">BlueDot Impact</span> spins out of Cambridge's EA community, with <span class="e" data-id="openphil">Open Phil</span> funding, to run <b>AI Safety Fundamentals</b>: the course, built on a curriculum by <span class="e" data-id="ngo">Richard Ngo</span>, that becomes the field's main structured on-ramp for newcomers. It's also the host of the hackathon this very project was built for.</p>
 </div>
 
-<div class="step" data-focus="govai,dafoe,fhi,epoch,sevilla,apollo,hobbhahn,far,gleave,constellation,redwood,arc,mats,openphil,deepmind">
+<div class="step" data-focus="govai,dafoe,fhi,epoch,sevilla,apollo,hobbhahn,kokotajlo,far,gleave,constellation,redwood,arc,mats,openphil,deepmind,pibbss,ammann,simplex,timaeus,hoogland">
 <div class="yr">2021&ndash;23 — The ecosystem thickens</div>
-<p>Around the labs, a professional layer grows. <span class="e" data-id="dafoe">Allan Dafoe</span>'s <span class="e" data-id="govai">Centre for the Governance of AI</span>, born inside <span class="e" data-id="fhi">FHI</span>, becomes an independent org (2021) and seeds the policy wing. <span class="e" data-id="sevilla">Jaime Sevilla</span> founds <span class="e" data-id="epoch">Epoch AI</span> (2022), whose charts of compute and capability trends become the field's standard evidence base. <span class="e" data-id="gleave">Adam Gleave</span>, the CHAI PhD, founds <span class="e" data-id="far">FAR AI</span> in Berkeley (2022). <span class="e" data-id="hobbhahn">Marius Hobbhahn</span> co-founds <span class="e" data-id="apollo">Apollo Research</span> in London (2023) to test frontier models for deception. And <span class="e" data-id="constellation">Constellation</span> opens in Berkeley (2023), a shared hub that grew out of <span class="e" data-id="redwood">Redwood</span>, where researchers from <span class="e" data-id="arc">ARC</span>, METR, <span class="e" data-id="mats">MATS</span>, and Open Phil work under one roof. Much of this layer is funded by <span class="e" data-id="openphil">Open Philanthropy</span> and staffed by MATS alumni.</p>
+<p>Around the labs, a professional layer grows. <span class="e" data-id="dafoe">Allan Dafoe</span>'s <span class="e" data-id="govai">Centre for the Governance of AI</span>, born inside <span class="e" data-id="fhi">FHI</span>, becomes an independent org (2021) and seeds the policy wing. <span class="e" data-id="sevilla">Jaime Sevilla</span> founds <span class="e" data-id="epoch">Epoch AI</span> (2022), whose charts of compute and capability trends become the field's standard evidence base. <span class="e" data-id="gleave">Adam Gleave</span>, the CHAI PhD, founds <span class="e" data-id="far">FAR AI</span> in Berkeley (2022). <span class="e" data-id="hobbhahn">Marius Hobbhahn</span> co-founds <span class="e" data-id="apollo">Apollo Research</span> in London (2023) to test frontier models for deception; <span class="e" data-id="kokotajlo">Daniel Kokotajlo</span> later joins its board.</p>
+<p><span class="e" data-id="ammann">Nora Ammann</span> co-founds <span class="e" data-id="pibbss">PIBBSS</span> (2022), a fellowship that deliberately recruits from outside computer science on the bet that biology, physics, and cognitive science have something to teach AI safety. Its alumni go on to found <span class="e" data-id="simplex">Simplex</span> and take safety roles at Anthropic and Epoch.</p>
+<p>And <span class="e" data-id="constellation">Constellation</span> opens in Berkeley (2023). It began as a shared office that <span class="e" data-id="redwood">Redwood Research</span> set up for allied groups, then grew into its own nonprofit hub, backed by Open Phil, where <span class="e" data-id="arc">ARC</span>, METR, <span class="e" data-id="mats">MATS</span>, and lab researchers work under one roof. Its Astra Fellowship becomes one of the field's clearest pipelines: fellows are paired with a named mentor at a specific lab, and a large share go on to work there. Much of this layer is funded by <span class="e" data-id="openphil">Open Philanthropy</span> and staffed by MATS alumni, including <span class="e" data-id="hoogland">Jesse Hoogland</span>, who founds <span class="e" data-id="timaeus">Timaeus</span> to study how a model's internal structure forms during training.</p>
+</div>
+
+<div class="step scene" data-focus="lifland,romeodean,bhatt,shlegeris,greenblatt,constellation,redwood,aifutures,metr">
+<span class="scene-tag">SCENE</span>
+<div class="yr">Astra Fellowship — the pipeline made visible</div>
+<p>Three small, documented examples of the same pattern:</p>
+<div class="comic">
+  <div class="panel"><img data-photo="lifland" alt="Lifland"><div class="pname">Eli Lifland</div><div class="bubble">"I first started working with Daniel Kokotajlo through Astra… after Astra, we co-founded the AI Futures Project together."</div></div>
+  <div class="panel"><img data-photo="bhatt" alt="Bhatt"><div class="pname">Aryan Bhatt</div><div class="bubble">"I worked closely with my mentor Buck… that led me to my role at Redwood Research, where I now run a team."</div></div>
+</div>
+<div class="comic-note">real testimonials, published by <a href="https://constellation.org/programs/astra" target="_blank">Constellation</a></div>
+<p>Lifland and <span class="e" data-id="romeodean">Romeo Dean</span> began working with <span class="e" data-id="kokotajlo">Kokotajlo</span> during Astra, a collaboration that became the AI Futures Project (its big output comes later in this story). <span class="e" data-id="bhatt">Bhatt</span>'s mentor was <span class="e" data-id="shlegeris">Buck Shlegeris</span>, alongside <span class="e" data-id="greenblatt">Redwood's chief scientist Ryan Greenblatt</span>. Different fellows, same mechanism: a fellowship pairs someone with a mentor at a specific org, and that pairing becomes a career.</p>
 </div>
 
 <div class="step scene" data-focus="openai">
@@ -392,7 +422,7 @@ footer a{color:var(--green)}
 <p><b>The symbolic fall:</b> after 19 years, the <span class="e" data-id="fhi">Future of Humanity Institute</span> is officially closed by Oxford. The absolute founding institution of the field dies at the exact moment the broader AI-safety industry hits its peak.</p>
 </div>
 
-<div class="step scene" data-focus="sutskever,leike,openai,anthropic,ssi,aschenbrenner">
+<div class="step scene" data-focus="sutskever,leike,openai,anthropic,ssi,aschenbrenner,balwit">
 <span class="scene-tag">SCENE</span>
 <div class="yr">May 2024 — "Shiny products"</div>
 <p><span class="e" data-id="sutskever">Ilya Sutskever</span> and <span class="e" data-id="leike">Jan Leike</span> both abruptly quit OpenAI, days apart:</p>
@@ -401,7 +431,13 @@ footer a{color:var(--green)}
   <div class="panel"><img data-photo="leike" alt="Leike"><div class="pname">Leike</div><div class="bubble">"…safety culture and processes have taken a backseat to shiny products."</div></div>
 </div>
 <div class="comic-note">real posts — <a href="https://x.com/ilyasut/status/1790517455628198322" target="_blank">Sutskever, X, May 14 2024</a> · <a href="https://venturebeat.com/ai/openais-former-superalignment-leader-blasts-company-safety-culture-and-processes-have-taken-a-backseat" target="_blank">Leike's full thread &amp; coverage</a></div>
-<p>OpenAI immediately dissolves the entire Superalignment team; the 20%-compute promise doesn't survive it. <b>The realignments:</b> Leike goes directly to <span class="e" data-id="anthropic">Anthropic</span>. Sutskever founds <span class="e" data-id="ssi">Safe Superintelligence</span> (<span class="g" data-tip="Safe Superintelligence Inc., founded 2024 by Ilya Sutskever — $1B valuation, no public product.">SSI</span>), securing a $1 billion valuation on day one without a public product. <span class="e" data-id="aschenbrenner">Leopold Aschenbrenner</span> publishes his explosive essay <em>Situational Awareness</em> and establishes an AGI-focused hedge fund.</p>
+<p>OpenAI immediately dissolves the entire Superalignment team; the 20%-compute promise doesn't survive it. <b>The realignments:</b> Leike goes directly to <span class="e" data-id="anthropic">Anthropic</span>. Sutskever founds <span class="e" data-id="ssi">Safe Superintelligence</span> (<span class="g" data-tip="Safe Superintelligence Inc., founded 2024 by Ilya Sutskever — $1B valuation, no public product.">SSI</span>), securing a $1 billion valuation on day one without a public product. <span class="e" data-id="aschenbrenner">Leopold Aschenbrenner</span>, himself pushed out of the Superalignment team, publishes his essay <em><a href="https://situational-awareness.ai/" target="_blank">Situational Awareness</a></em> and starts an AGI-focused hedge fund. He and <span class="e" data-id="balwit">Avital Balwit</span>, chief of staff to Dario Amodei at Anthropic, met at the <span class="e" data-id="ftx">FTX Future Fund</span> and are now engaged, one more line connecting the labs, the funders, and the FTX era.</p>
+</div>
+
+<div class="step" data-focus="balaji,openai">
+<div class="yr">Nov 2024</div>
+<p><span class="e" data-id="balaji">Suchir Balaji</span>, a 26-year-old researcher who had helped assemble GPT-4's training data, left OpenAI in 2024 and went public with the claim that the company had broken copyright law. He was found dead in his San Francisco apartment that November. Authorities ruled it a suicide; his family disputes the finding and has sued for a reinvestigation. His case became a reference point in the wider argument over transparency and accountability inside the labs.</p>
+<div class="src">Proof: <a href="https://en.wikipedia.org/wiki/Suchir_Balaji" target="_blank">Suchir Balaji</a> · <a href="https://www.cbsnews.com/news/suchir-balaji-openai-whistleblower-dead-california/" target="_blank">CBS News</a>. This is a sensitive topic; if you or someone you know is struggling, support is available.</div>
 </div>
 
 <div class="step scene" data-focus="schulman,openai,anthropic,christiano,usaisi">
@@ -431,25 +467,25 @@ footer a{color:var(--green)}
 <div class="yr">2025 — The loop closes</div>
 <p>The boundary between safety funder and safety lab dissolves completely as <span class="e" data-id="karnofsky">Holden Karnofsky</span> joins <span class="e" data-id="anthropic">Anthropic</span> as a full-time executive — closing the historic funder-to-operator loop. <span class="e" data-id="bengio">Yoshua Bengio</span> establishes <span class="e" data-id="lawzero">LawZero</span>. <span class="e" data-id="schulman">John Schulman</span> leaves Anthropic after ~6 months to become chief scientist at <span class="e" data-id="tml">Thinking Machines Lab</span>.</p>
 <div class="comic">
-  <div class="panel"><img data-photo="karnofsky" alt="Karnofsky"><div class="pname">Karnofsky</div><div class="bubble">Fifteen years deciding who gets funded. Now he works at the lab his foundation's world helped build — and his wife co-founded.</div></div>
+  <div class="panel"><img data-photo="karnofsky" alt="Karnofsky"><div class="pname">Karnofsky</div><div class="bubble">Fifteen years deciding who gets funded. Now he works at the lab his foundation's world helped build, and that Daniela Amodei co-founded and leads as president.</div></div>
 </div>
 </div>
 
 <div class="step" data-focus="cais,fli,siai,anthropic,ukaisi,usaisi">
-<div class="yr">2025 — The label wars</div>
-<p>The coalition that built this field is quietly splitting into camps. Post-FTX, "effective altruism" has become a brand many orgs avoid: <span class="e" data-id="cais">CAIS</span> positions itself as mainstream academic consensus-building and keeps its distance from EA framing; the <span class="e" data-id="ukaisi">AISIs</span> are government bodies that can't afford the association; <span class="e" data-id="anthropic">Anthropic</span> is a commercial lab; and <span class="e" data-id="siai">MIRI</span> has gone full doom-advocacy.</p>
-<p>The tension is real: the EA-descended wing thinks in decades and extinction probabilities; the newer professionalized wing thinks in evals, policy cycles, and quarterly capability jumps. Same family tree — increasingly different religions.</p>
+<div class="yr">2025 — Diverging identities</div>
+<p>The coalition that built the field increasingly presents itself in different ways. After the FTX collapse, several organizations distanced their public framing from "effective altruism": <span class="e" data-id="cais">CAIS</span> emphasizes mainstream academic and policy engagement; the <span class="e" data-id="ukaisi">AISIs</span> are government bodies; <span class="e" data-id="anthropic">Anthropic</span> is a commercial company; and <span class="e" data-id="siai">MIRI</span> has shifted toward public advocacy.</p>
+<p>Underneath the shared history sit real differences in emphasis. One strand focuses on long-term, low-probability catastrophic risk; another focuses on near-term measurement, evaluations, and policy. They still overlap heavily in people and funding, but their language and priorities have drifted apart.</p>
 </div>
 
-<div class="step" data-focus="kokotajlo,aifutures,alexander,openai,lesswrong">
+<div class="step" data-focus="kokotajlo,aifutures,alexander,lifland,romeodean,openai,lesswrong,constellation">
 <div class="yr">Apr 2025 — AI 2027</div>
-<p><span class="e" data-id="kokotajlo">Daniel Kokotajlo</span> — the OpenAI governance researcher who left in 2024 and refused to sign the exit NDA, giving up his equity to keep the right to criticize the company — publishes <b>AI 2027</b> through his <span class="e" data-id="aifutures">AI Futures Project</span>, co-written with <span class="e" data-id="alexander">Scott Alexander</span> of Astral Codex Ten. It is a detailed, month-by-month scenario of an intelligence explosion arriving in 2027, built on Kokotajlo's track record (his 2021 forecast "What 2026 Looks Like" aged unusually well). It reaches far beyond the field — the forecasting wing of the movement now has a mainstream audience.</p>
+<p><span class="e" data-id="kokotajlo">Daniel Kokotajlo</span>, the OpenAI governance researcher who left in 2024 and refused to sign the exit NDA, giving up his equity to keep the right to criticize the company, publishes <b>AI 2027</b> with <span class="e" data-id="lifland">Eli Lifland</span>, <span class="e" data-id="romeodean">Romeo Dean</span>, and <span class="e" data-id="alexander">Scott Alexander</span> of Astral Codex Ten. Lifland and Dean met Kokotajlo through Constellation's Astra Fellowship, where the scenario began as a fellowship project; the four then founded the <span class="e" data-id="aifutures">AI Futures Project</span> to publish it. It is a detailed, month-by-month scenario of an intelligence explosion arriving in 2027, built partly on Kokotajlo's track record (his 2021 forecast "What 2026 Looks Like" aged unusually well). It reaches far beyond the field, giving the forecasting wing of the movement a mainstream audience.</p>
 <div class="src">Proof: <a href="https://ai-2027.com/" target="_blank">AI 2027 — full scenario</a></div>
 </div>
 
 <div class="step" data-focus="yudkowsky,soares,siai">
 <div class="yr">Sep 2025 — The wilderness prophet</div>
-<p><span class="e" data-id="yudkowsky">Eliezer Yudkowsky</span> and <span class="e" data-id="soares">Nate Soares</span> publish <em>If Anyone Builds It, Everyone Dies</em>. The book becomes an instant New York Times bestseller — propelling a warning born in an obscure 1990s mailing list straight into mainstream retail culture, 25 years later. Same node the story opened on.</p>
+<p><span class="e" data-id="yudkowsky">Eliezer Yudkowsky</span> and <span class="e" data-id="soares">Nate Soares</span> publish <em><a href="https://ifanyonebuildsit.com/" target="_blank">If Anyone Builds It, Everyone Dies</a></em>. The book becomes an instant New York Times bestseller — propelling a warning born in an obscure 1990s mailing list straight into mainstream retail culture, 25 years later. Same node the story opened on.</p>
 </div>
 
 <div class="step" data-focus="openphil">
@@ -467,7 +503,7 @@ footer a{color:var(--green)}
 </section>
 
 <footer>
-Quotes on screen are real and sourced at each beat. Network data covers people, organizations, funders and the employment, funding, marriage, and co-founding edges between them. Photos load from Wikimedia Commons where available; initials shown otherwise.
+Quotes on screen are real and sourced at each beat. Network data covers people, organizations, funders and the employment, funding, marriage, and co-founding edges between them. Photos and logos are used for identification and are the property of their respective owners. Questions or corrections: <a href="mailto:nastassiashaveika@gmail.com">nastassiashaveika@gmail.com</a>.
 </footer>
 </div>
 
@@ -521,13 +557,82 @@ const LOGOS = {
   eleuther:"EleutherAI logo.svg",
   ftx:"FTX logo.svg"
 };
-/* Local photos/logos: create an "assets" folder next to this file, drop images in,
-   then add entries here, e.g. hanson:"hanson.jpg", anthropic:"anthropic.png" */
-const LOCAL = {};
+/* Local photos/logos in assets/pictures/ (curated by hand — these override everything). */
+const LOCAL = {
+  /* people */
+  aguirre:"aguirre..jpg", alfour:"alfour_cut.png", ammann:"ammann.jpg", aschenbrenner:"aschenbrenner.jpg",
+  balaji:"balaji.jpg", balwit:"balwit.jpg", barnes:"barnes.jpg", brown:"brown.jpg", chita:"chita-tegmark.jpg",
+  christiano:"christiano.jpg", clark:"clark.jpg", dangelo:"d'angelo..jpg", dafoe:"dafoe.jpg",
+  damodei:"daniela_amodei.jpg", friedman:"friedman.jpg", galef:"galef.jpg", hanson:"hanson.jpg",
+  hassenfeld:"hassenfeld.jpg", hoogland:"hoogland.jpg", hubinger:"hubinger.jpg", irving:"irving.jpg",
+  collison:"patrick_collison.jpg", kaplan:"kaplan.jpg", kidd:"kidd.jpeg", kingma:"kingma.jpg",
+  krakovna:"krakovna.jpg", leahy:"leahy.jpg", leike:"leike.jpg", livingston:"livingston.jpg",
+  mccandlish:"mccandlish.jpg", mccauley:"mccauley.jpg", ngo:"ngo.jpg", olah:"olah.jpg", price:"price.jpg",
+  salamon:"salamon.jpg", schulman:"schulman.jpg", sevilla:"sevilla.jpg", shah:"shah.jpg",
+  csmith:"smith.jpeg", todd:"todd.jpg", toner:"toner.jpg", zaremba:"zaremba.jpg",
+  /* org logos */
+  fhi:"Future_of_Humanity_Institute_logo.svg.webp", lesswrong:"LessWrong_logo.svg", siai:"MIRI_logo.svg.webp",
+  cfar:"center for applied rationality.png", cser:"center for existential risk.svg", chai:"chai.png",
+  openphil:"coefficing giving.png", fli:"future_of_life_logo.png", goodventures:"goodventures.jpg",
+  wta:"humanityplusemail.webp", extropians:"extropy.gif", distill:"distill.png", cset:"cset.png",
+  arc:"alignment research center.png", conjecture:"conjecture.png", eureka:"eureka labs.jpg",
+  tml:"thinking_machines.png", lawzero:"law_zero.png", aifutures:"ai_futures.png", eightyk:"80k hours.png",
+  constellation:"Constellation Logo Final-cropped.svg", govai:"govAI.png", timaeus:"timoteus.png",
+  givewell:"givewell.png", ukaisi:"ukai.svg", usaisi:"usai.svg"
+};
+/* Direct, full image URLs pulled from official org team/about pages (not LinkedIn) */
+const DIRECT = {
+  shlegeris:"https://www.redwoodresearch.org/_next/image?url=%2Fheadshots%2Fbuck.jpeg&w=3840&q=75",
+  greenblatt:"https://www.redwoodresearch.org/_next/image?url=%2Fheadshots%2Fryan.png&w=3840&q=75",
+  hobbhahn:"https://www.apolloresearch.ai/wp-content/uploads/2025/07/marius_small-1-700x700.jpg",
+  kokotajlo:"https://www.apolloresearch.ai/wp-content/uploads/2026/04/Daniel-.webp",
+  lifland:"https://constellation.org/hs-fs/hubfs/Photos/Astra%20Mentors/Eli%20Lifland%20AIFP.jpg?width=1355&height=1649&name=Eli%20Lifland%20AIFP.jpg",
+  romeodean:"https://constellation.org/hs-fs/hubfs/Photos/Astra%20Mentors/Romeo%20Dean%20AIFP.png?width=787&height=842&name=Romeo%20Dean%20AIFP.png",
+  bhatt:"https://constellation.org/hs-fs/hubfs/Photos/Astra%20Mentors/Aryan%20Bhatt%20headshot%20high-res.jpg?height=2000&name=Aryan%20Bhatt%20headshot%20high-res.jpg",
+  /* org logos pulled from official sites (dark-on-light versions only) */
+  epoch:"https://epoch.ai/assets/logo/logo.svg",
+  cais:"https://cdn.prod.website-files.com/63fe96aeda6bea77ac7d3000/64324a03a3160812b0b5cacd_7773f940427a28e1bc39fce34617a4ab_CAIS%20Logomark%20Black.svg",
+  redwood:"https://www.redwoodresearch.org/redwood_logo.svg",
+  apollo:"https://www.apolloresearch.ai/wp-content/uploads/2026/04/Apollo_Logo.png",
+  pibbss:"https://princint.ai/wp-content/uploads/2025/10/poi-logo.svg",
+  metr:"https://bluedot.org/images/third-party-logos/metr.svg",
+  anthropic:"https://bluedot.org/images/third-party-logos/anthropic.svg",
+  mats:"https://bluedot.org/images/third-party-logos/mats.svg",
+  deepmind:"https://bluedot.org/images/third-party-logos/deepmind.svg",
+  far:"https://cdn.prod.website-files.com/66f4503c3d0f4d4a75074a18/66f6e16c08352cbc69f1fe55_Far%20AI%20Logotype.svg"
+};
+/* official websites, shown as a link on the profile card and used for inline org chips */
+const LINKS = {
+  extropians:"https://extropians.boydkane.com/", wta:"https://www.humanityplus.org/",
+  siai:"https://intelligence.org/", fhi:"https://en.wikipedia.org/wiki/Future_of_Humanity_Institute",
+  lesswrong:"https://www.lesswrong.com/", deepmind:"https://deepmind.google/",
+  goodventures:"https://www.goodventures.org/", openphil:"https://www.coefficientgiving.org/",
+  cser:"https://www.cser.ac.uk/", cfar:"https://rationality.org/", fli:"https://futureoflife.org/",
+  google:"https://about.google/", yc:"https://www.ycombinator.com/", openai:"https://openai.com/",
+  chai:"https://humancompatible.ai/", distill:"https://distill.pub/", microsoft:"https://www.microsoft.com/",
+  cset:"https://cset.georgetown.edu/", eleuther:"https://www.eleuther.ai/", anthropic:"https://www.anthropic.com/",
+  arc:"https://www.alignment.org/", redwood:"https://www.redwoodresearch.org/", mats:"https://www.matsprogram.org/",
+  ftx:"https://en.wikipedia.org/wiki/FTX_Future_Fund", conjecture:"https://www.conjecture.dev/",
+  metr:"https://metr.org/", cais:"https://safe.ai/", ukaisi:"https://www.aisi.gov.uk/",
+  usaisi:"https://www.nist.gov/aisi", ssi:"https://ssi.inc/", eureka:"https://eurekalabs.ai/",
+  tml:"https://thinkingmachines.ai/", lawzero:"https://lawzero.org/", bluedot:"https://bluedot.org/",
+  aifutures:"https://ai-futures.org/", gwwc:"https://www.givingwhatwecan.org/", eightyk:"https://80000hours.org/",
+  epoch:"https://epoch.ai/", apollo:"https://www.apolloresearch.ai/", constellation:"https://constellation.org/",
+  far:"https://far.ai/", govai:"https://www.governance.ai/", timaeus:"https://timaeus.co/",
+  pibbss:"https://pibbss.ai/", simplex:"https://www.simplexaisafety.com/",
+  givewell:"https://www.givewell.org/", seri:"https://seri.stanford.edu/", lisa:"https://www.safeai.org.uk/"
+};
+function resolveImg(id, kind, fallback){
+  if(LOCAL[id]) return encodeURI("assets/pictures/"+LOCAL[id]);
+  if(DIRECT[id]) return DIRECT[id];
+  if(kind==="o") return LOGOS[id] ? wiki(LOGOS[id]) : fallback;
+  return PHOTOS[id] ? wiki(PHOTOS[id]) : fallback;
+}
 /* [id, name, kind(p=person,f=funder), role, card text] */
 const PEOPLE = [
 ["yudkowsky","Eliezer Yudkowsky","p","Founder, SIAI/MIRI","Self-taught theorist from the 90s extropians scene — no degree, argued online as a teenager that a friendly superintelligence was humanity's most urgent project. Founded SIAI (2000) to accelerate AI, flipped in 2005 to worry about it, wrote the Sequences and HPMOR, and in 2025 landed a NYT bestseller warning it will kill everyone."],
 ["bostrom","Nick Bostrom","p","Philosopher, FHI","Oxford philosopher who arrived at existential risk from formal epistemology and probability theory — a different door into the same room as the forum crowd. Founded FHI in 2005; his 2014 book Superintelligence made Musk, Gates and Hawking take the topic public. Now: after Oxford closed FHI in 2024, runs the independent Macrostrategy Research Initiative."],
+["pearce","David Pearce","p","Co-founder, WTA","British philosopher who co-founded the World Transhumanist Association with Bostrom in 1998. Author of The Hedonistic Imperative, arguing technology should be used to abolish suffering. A founding voice of the transhumanist movement the field grew out of."],
 ["sandberg","Anders Sandberg","p","Researcher, FHI","Swedish transhumanist from the extropians scene; long-time FHI researcher on existential risk, human enhancement, and the far future. Now: at the Institute for Futures Studies in Stockholm, following FHI's 2024 closure."],
 ["hanson","Robin Hanson","p","Economist, GMU","Economist and early Overcoming Bias blogger. Yudkowsky's sparring partner in the 2008 FOOM debate — argued for slow, economy-wide takeoff. Now: still a George Mason professor, still betting on slow takeoff."],
 ["atkins","Brian & Sabine Atkins","f","Co-founders, SIAI","Early internet entrepreneurs who bankrolled and co-founded the Singularity Institute with Yudkowsky in 2000."],
@@ -535,10 +640,10 @@ const PEOPLE = [
 ["hassabis","Demis Hassabis","p","Co-founder, DeepMind","Chess prodigy and neuroscientist; co-founded DeepMind in 2010, sold it to Google in 2014, won the Nobel in Chemistry (2024) for AlphaFold."],
 ["legg","Shane Legg","p","Co-founder, DeepMind","DeepMind co-founder; his PhD work formally defined machine intelligence — and warned about its risks early. Now: chief AGI scientist at Google DeepMind."],
 ["suleyman","Mustafa Suleyman","p","Co-founder, DeepMind","DeepMind's applied/policy co-founder; by the modern era, runs consumer AI at Microsoft."],
-["tuna","Cari Tuna","f","Co-founder, Good Ventures","Former Wall Street Journal reporter, married to Dustin Moskovitz. Together they built Good Ventures and Open Philanthropy into the field's biggest funder; she has run the philanthropy day-to-day."],
-["moskovitz","Dustin Moskovitz","f","Co-founder, Good Ventures","Facebook co-founder, married to Cari Tuna. Their Good Ventures money powers Open Philanthropy, and he joined Anthropic's Series A personally."],
+["tuna","Cari Tuna","f","Co-founder, Good Ventures","Former Wall Street Journal reporter who leads Good Ventures and, with her partner Dustin Moskovitz, built it and Open Philanthropy into the field's biggest funder. She has run the philanthropy day-to-day, directing where the money goes."],
+["moskovitz","Dustin Moskovitz","f","Co-founder, Good Ventures","Facebook co-founder; with his partner Cari Tuna, who leads the philanthropy, funds Good Ventures and Open Philanthropy. He also joined Anthropic's Series A personally."],
 ["tallinn","Jaan Tallinn","f","Investor; co-founder CSER & FLI","Physics degree from Tartu, Estonia (1996); engineer on Kazaa, then Skype. Read Yudkowsky's essays around 2009, emailed him, started as a donor. Co-founded CSER (2012) and FLI (2014); framed his DeepMind investment as keeping a safety-minded eye on Hassabis from the inside. Led Anthropic's $124M Series A."],
-["olah","Chris Olah","p","Co-founder, Anthropic","Thiel Fellow (2012), no degree; invented much of neural-network interpretability. Founded Distill (2017), joined OpenAI (2018), co-founded Anthropic (2021)."],
+["olah","Chris Olah","p","Co-founder, Anthropic","Thiel Fellow (2012), no degree; pioneered much of neural-network interpretability. Founded Distill (2017, on indefinite hiatus since 2021), joined OpenAI (2018), co-founded Anthropic (2021). Now: leads Anthropic's interpretability team, trying to read what actually happens inside the models."],
 ["altman","Sam Altman","p","CEO, OpenAI","YC president from 2013 under Thiel's influence; co-founded OpenAI in 2015, survived his own board's coup in Nov 2023 — reinstated in five days."],
 ["tegmark","Max Tegmark","p","President, FLI","MIT physics professor and author of Life 3.0; co-founded FLI (2014, based in Cambridge MA) and still runs it — Puerto Rico conference (2015), the pause letter (2023). Thinks the race to superintelligence is a 'suicide race' needing nuclear-style international controls. Now: MIT professor, FLI president, one of the loudest institutional voices for a pause."],
 ["krakovna","Viktoriya Krakovna","p","Co-founder, FLI; DeepMind","Ukrainian-born, Harvard statistics PhD; co-founded FLI in 2014 and became a founding member of DeepMind's AGI-safety team. Known for the 'specification gaming' master list — real recorded examples of AIs finding loopholes in their objectives. Thinks the hard problem is specifying what we actually want. Now: senior research scientist on Google DeepMind's safety team."],
@@ -553,9 +658,9 @@ const PEOPLE = [
 ["hoffman","Reid Hoffman","f","Investor","LinkedIn co-founder; early OpenAI backer."],
 ["livingston","Jessica Livingston","f","Investor","Y Combinator co-founder; early OpenAI backer."],
 ["russell","Stuart Russell","p","Founder, CHAI","Berkeley professor, co-author of the standard AI textbook; founded CHAI in 2016 with Open Phil funding — the field's clearest academic foothold."],
-["karnofsky","Holden Karnofsky","p","Co-founder, Open Phil","GiveWell co-founder who built Open Philanthropy; sat on OpenAI's board after the $30M grant; married Daniela Amodei; stepped down from Open Phil (2024) and joined Anthropic (2025) — funder and lab collapsed into one person."],
-["damodei","Daniela Amodei","p","Co-founder, Anthropic","OpenAI VP who left with her brother Dario in 2020 to co-found Anthropic as president. Married to Holden Karnofsky — the map's only yellow edge."],
-["dario","Dario Amodei","p","Co-founder, Anthropic","Former VP of Research at OpenAI, leading a mass exodus to build a safety-first 'Constitutional' lab. Signed the CAIS extinction statement alongside his rivals."],
+["karnofsky","Holden Karnofsky","p","Co-founder, Open Phil","GiveWell co-founder who built Open Philanthropy; sat on OpenAI's board after the $30M grant; partner of Anthropic president Daniela Amodei; stepped down from Open Phil (2024) and joined Anthropic (2025) — funder and lab collapsed into one person."],
+["damodei","Daniela Amodei","p","Co-founder & President, Anthropic","OpenAI VP who left in 2020, with her brother Dario, to co-found Anthropic. Her partner is Open Philanthropy's Holden Karnofsky. Now: president of Anthropic, running the company's operations, policy, and people functions."],
+["dario","Dario Amodei","p","Co-founder & CEO, Anthropic","Former VP of Research at OpenAI who led a group of colleagues out to build a safety-focused lab. Signed the CAIS extinction statement alongside his competitors. Now: CEO of Anthropic, one of the three leading frontier labs, and a prominent public voice on AI risk and policy."],
 ["christiano","Paul Christiano","p","Founder, ARC","Invented RLHF at OpenAI (2017 paper). Left in 2021 to found the Alignment Research Center; became Head of Safety at the US AISI in 2024 — the lab-to-government arrow."],
 ["shlegeris","Buck Shlegeris","p","Co-founder, Redwood","MIRI researcher who left to co-found Redwood Research in 2021."],
 ["leahy","Connor Leahy","p","Co-founder, EleutherAI & Conjecture","Started EleutherAI as a Discord server in lockdown (2020) to replicate GPT-3 in the open, then concluded open-sourcing frontier models was a mistake. Founded Conjecture (2022) to build bounded, understandable systems instead, and became one of the most-quoted public voices warning about extinction risk. Stepped down as Conjecture CEO in 2026."],
@@ -572,13 +677,13 @@ const PEOPLE = [
 ["beckstead","Nick Beckstead","p","CEO, FTX Future Fund","Philosopher and ex-Open Phil program officer; ran the FTX Future Fund, resigned with the whole team the week FTX collapsed."],
 ["alfour","Gabriel Alfour","p","Co-founder, Conjecture","Conjecture co-founder and CTO."],
 ["barnes","Beth Barnes","p","Founder, METR","Left OpenAI in 2022 to build ARC Evals — dangerous-capability testing — which spun out as METR (Dec 2023) with her as CEO."],
-["leike","Jan Leike","p","Co-lead, Superalignment","Alignment researcher; co-led OpenAI's Superalignment team, quit in May 2024 saying safety had 'taken a backseat to shiny products,' and joined Anthropic."],
+["leike","Jan Leike","p","Alignment lead, Anthropic","Co-led OpenAI's Superalignment team, quit in May 2024 saying safety had 'taken a backseat to shiny products.' Now: leads alignment research at Anthropic."],
 ["toner","Helen Toner","p","Board member, OpenAI","Georgetown/CSET researcher; OpenAI board member who voted to fire Altman in Nov 2023 and left the board when he returned."],
 ["mccauley","Tasha McCauley","p","Board member, OpenAI","Tech entrepreneur; EA-aligned OpenAI board member purged after the November 2023 crisis."],
 ["dangelo","Adam D'Angelo","p","Board member, OpenAI","Quora CEO; the only coup-era board member who stayed after Altman's return."],
 ["shear","Emmett Shear","p","Interim CEO, OpenAI","Twitch co-founder; OpenAI's interim CEO for roughly 72 hours during the November 2023 crisis."],
 ["irving","Geoffrey Irving","p","Chief Scientist, UK AISI","Safety researcher (OpenAI, DeepMind) who became chief scientist of the UK's AI Safety Institute at its founding — the lab-to-state pipeline begins."],
-["aschenbrenner","Leopold Aschenbrenner","p","Author, Situational Awareness","Fired from OpenAI's Superalignment team; published the Situational Awareness essays (2024) and launched an AGI-thesis hedge fund."],
+["aschenbrenner","Leopold Aschenbrenner","p","Founder, Situational Awareness LP","German researcher who worked at the FTX Future Fund, then OpenAI's Superalignment team, where he was pushed out in 2024. Published the widely-read Situational Awareness essays. His partner, Avital Balwit, is chief of staff to Anthropic's CEO; they met at the Future Fund. Now: runs an AGI-focused hedge fund."],
 ["hinton","Geoffrey Hinton","p","Godfather of deep learning","Backprop pioneer; quit Google in 2023 to speak freely about existential risk, signed the CAIS statement, won the Nobel in Physics (2024)."],
 ["bengio","Yoshua Bengio","p","Founder, LawZero","Turing Award deep-learning pioneer turned safety advocate; signed the CAIS statement; founded LawZero (2025)."],
 ["jumper","John Jumper","p","AlphaFold lead, DeepMind","Led AlphaFold at DeepMind; shared the 2024 Nobel Prize in Chemistry with Hassabis."],
@@ -594,7 +699,7 @@ const PEOPLE = [
 ["alexander","Scott Alexander","p","Writer, Astral Codex Ten","Psychiatrist and essayist behind Slate Star Codex / Astral Codex Ten — after LessWrong, the rationalist community's main gathering place. Co-wrote AI 2027 with Kokotajlo. Now: still blogging, still the community's house writer."],
 ["ord","Toby Ord","p","Philosopher, Oxford","Oxford moral philosopher; co-founded Giving What We Can (2009), the 10%-of-income pledge that seeded effective altruism. Longtime FHI researcher; his 2020 book The Precipice put existential risk into mainstream policy language. Now: at Oxford, advising governments on AI risk."],
 ["todd","Benjamin Todd","p","Co-founder, 80,000 Hours","Co-founded 80,000 Hours with MacAskill in Oxford (2011) — the careers-advice organization that made AI safety one of its top recommended paths, steering thousands of graduates toward the orgs on this map."],
-["chita","Meia Chita-Tegmark","p","Co-founder, FLI","Psychology researcher (human-robot interaction); co-founded FLI in 2014. Married to Max Tegmark."],
+["chita","Meia Chita-Tegmark","p","Co-founder, FLI","Psychology researcher on human-robot interaction and co-founder of FLI (2014); also co-founded an assistive-robotics company. Her partner is Max Tegmark."],
 ["aguirre","Anthony Aguirre","p","Co-founder, FLI","UC Santa Cruz cosmologist. He and Tegmark had already run the Foundational Questions Institute (FQXi) together for a decade before co-founding FLI in 2014 — physics-foundations colleagues turned x-risk organizers. Also co-founded the forecasting platform Metaculus."],
 ["price","Huw Price","p","Co-founder, CSER","Cambridge philosopher. Co-founded CSER (2012) with Tallinn and Martin Rees after a chance conversation with Tallinn — famously, in a shared taxi — convinced him AI risk needed a Cambridge home."],
 ["rees","Martin Rees","p","Co-founder, CSER","Astronomer Royal and former president of the Royal Society; co-founded CSER (2012). Has argued for decades that civilization underestimates low-probability, high-impact risks."],
@@ -603,7 +708,20 @@ const PEOPLE = [
 ["hobbhahn","Marius Hobbhahn","p","Founder, Apollo Research","ML PhD (Tübingen) who came up through the MATS and evals community; co-founded Apollo Research in London (2023) to test frontier models for deception and scheming. Apollo's evaluations of OpenAI's o1 made 'scheming evals' a standard pre-release step."],
 ["gleave","Adam Gleave","p","Founder, FAR AI","CHAI PhD under Stuart Russell at Berkeley; founded FAR AI (2022), a nonprofit that runs alignment research and the field's main conference infrastructure. One of several CHAI alumni now running their own orgs."],
 ["dafoe","Allan Dafoe","p","Founder, GovAI","Political scientist who built the AI-governance research agenda inside FHI, spun the Centre for the Governance of AI out as its own org (2021), then led long-term AI strategy at DeepMind. Trained a large share of the people now staffing the AISIs."],
-["shah","Rohin Shah","p","CHAI alum; DeepMind","CHAI PhD at Berkeley; wrote the Alignment Newsletter, which for years was how the field kept up with itself. Now: leads AGI safety work at Google DeepMind."]
+["shah","Rohin Shah","p","CHAI alum; DeepMind","CHAI PhD at Berkeley; wrote the Alignment Newsletter, which for years was how the field kept up with itself. Now: leads AGI safety work at Google DeepMind."],
+["greenblatt","Ryan Greenblatt","p","Chief Scientist, Redwood","Redwood Research's chief scientist; a driving force behind 'AI control,' the research agenda for safely using models you don't fully trust rather than only trying to align them."],
+["hoogland","Jesse Hoogland","p","Founder, Timaeus","MATS alumnus who founded Timaeus to study developmental interpretability and singular learning theory: watching how a model's internal structure forms during training, not just inspecting the finished network."],
+["ammann","Nora Ammann","p","Co-founder, PIBBSS","Co-founded PIBBSS (2022) with TJ and Anna Gajdova to bring researchers from outside computer science, physics, biology, cognitive science, into AI safety, on the theory that understanding intelligence 'in the wild' has something to teach us about the artificial kind."],
+["lifland","Eli Lifland","p","Co-founder, AI Futures Project","Forecaster who met Daniel Kokotajlo through Constellation's Astra Fellowship; the scenario they started developing during the program became AI 2027. Co-founded the AI Futures Project with Kokotajlo afterward."],
+["romeodean","Romeo Dean","p","AI Futures Project","Joined the AI Futures Project through the same Astra-fellowship pipeline as Lifland, working on the AI 2027 scenario and its follow-on research."],
+["bhatt","Aryan Bhatt","p","Redwood Research","Came through Constellation's Astra Fellowship, mentored by Buck Shlegeris; the fellowship led directly to a role at Redwood, where he now runs a research team."],
+["hassenfeld","Elie Hassenfeld","p","Co-founder, GiveWell","Co-founded GiveWell with Holden Karnofsky in 2007. The two were young analysts at the hedge fund Bridgewater Associates who started evaluating charities the way they evaluated investments. Now: still CEO of GiveWell, which directs hundreds of millions of dollars a year to evidence-backed global-health charities."],
+["galef","Julia Galef","p","Co-founder, CFAR","Statistician-turned-writer; co-hosted the Rationally Speaking podcast and co-founded CFAR in 2012. Now: author of The Scout Mindset (2021), on seeing clearly versus defending your beliefs."],
+["salamon","Anna Salamon","p","Co-founder, CFAR","Mathematician who worked at MIRI before co-founding CFAR in 2012; the two orgs shared a Berkeley office. Now: CFAR's president, running its rationality workshops."],
+["balwit","Avital Balwit","p","Chief of Staff, Anthropic","Chief of staff to Dario Amodei at Anthropic. She and Leopold Aschenbrenner met while working at the FTX Future Fund; they are now engaged, a small illustration of how tightly connected this network is. Now: one of the more influential non-research figures at Anthropic."],
+["balaji","Suchir Balaji","p","Researcher, OpenAI","OpenAI researcher who helped gather the training data for GPT-4, then left in 2024 and publicly argued the company had broken copyright law. He was found dead in San Francisco in November 2024, aged 26; authorities ruled it a suicide, a finding his family disputes. Included because his case became a flashpoint in the debate over openness and accountability at the labs."],
+["friedman","Nat Friedman","f","Investor; ex-GitHub CEO","Former GitHub CEO and prolific tech investor; backed Conjecture and co-funds AI-progress measurement work. Now: runs an investment firm and, with Daniel Gross, advises on AI at Microsoft-adjacent ventures."],
+["collison","Patrick & John Collison","f","Founders, Stripe","Irish brothers who founded the payments company Stripe; among the investors in Conjecture. Notable here because Stripe is where Greg Brockman was CTO before OpenAI, one more thread linking these worlds."]
 ];
 /* [id, short label, full name] */
 const ORGS = [
@@ -622,7 +740,7 @@ const ORGS = [
 ["yc","Y Combinator","Y Combinator","YC"],
 ["openai","OpenAI","OpenAI (2015)","OAI"],
 ["chai","CHAI","Center for Human-Compatible AI, Berkeley (2016)","CHAI"],
-["distill","Distill","Distill (2017)","D"],
+["distill","Distill","Distill (2017) — interpretability journal; on indefinite hiatus since 2021","D"],
 ["microsoft","Microsoft","Microsoft","MS"],
 ["cset","CSET","Center for Security and Emerging Technology (2019)","CSET"],
 ["eleuther","EleutherAI","EleutherAI (2020)","EAI"],
@@ -646,14 +764,20 @@ const ORGS = [
 ["eightyk","80,000 Hours","80,000 Hours (2011, Oxford) — high-impact careers advice; a main talent funnel into AI safety","80K"],
 ["epoch","Epoch AI","Epoch AI (2022) — data and forecasting on AI compute and capability trends","EP"],
 ["apollo","Apollo Research","Apollo Research (2023, London) — deception and scheming evaluations","AP"],
-["constellation","Constellation","Constellation (2023, Berkeley) — shared research hub for safety orgs","CN"],
+["constellation","Constellation","Constellation Institute (2023, Berkeley) — runs the Astra Fellowship and an incubator for new safety orgs","CN"],
 ["far","FAR AI","FAR AI (2022, Berkeley) — alignment research nonprofit and events","FAR"],
-["govai","GovAI","Centre for the Governance of AI (2018 in FHI; independent 2021)","GOV"]
+["govai","GovAI","Centre for the Governance of AI (2018 in FHI; independent 2021)","GOV"],
+["timaeus","Timaeus","Timaeus (2023) — developmental interpretability and singular learning theory","TIM"],
+["pibbss","PIBBSS","PIBBSS / Principles of Intelligence (2022) — interdisciplinary AI-safety research fellowship","PIB"],
+["simplex","Simplex","Simplex (2024) — computational mechanics for AI safety; founded by PIBBSS alumni","SPX"],
+["givewell","GiveWell","GiveWell (2007) — charity evaluator; birthplace of Open Philanthropy","GW"],
+["seri","SERI","Stanford Existential Risks Initiative — co-launched SERI MATS (2021)","SERI"],
+["lisa","LISA","London Initiative for Safe AI (2023) — shared London hub, co-founded by the MATS team","LISA"]
 ];
 /* [from, to, type] — c cofound, e employment, f funding, m marriage, d association, a acquisition */
 const EDGES = [
 ["yudkowsky","extropians","d"],["bostrom","extropians","d"],["sandberg","extropians","d"],
-["bostrom","wta","c"],["sandberg","wta","c"],
+["bostrom","wta","c"],["pearce","wta","c"],["pearce","extropians","d"],["sandberg","wta","c"],
 ["yudkowsky","siai","c"],["atkins","siai","c"],
 ["bostrom","fhi","c"],["sandberg","fhi","e"],
 ["thiel","siai","f"],
@@ -731,7 +855,21 @@ const EDGES = [
 ["hobbhahn","apollo","c"],["hobbhahn","mats","d"],["openphil","apollo","f"],
 ["gleave","far","c"],["gleave","chai","e"],["openphil","far","f"],
 ["dafoe","govai","c"],["dafoe","deepmind","e"],["fhi","govai","d"],
-["redwood","constellation","d"],["arc","constellation","d"]
+["redwood","constellation","d"],["arc","constellation","d"],
+["shlegeris","greenblatt","e"],["greenblatt","redwood","e"],
+["hoogland","timaeus","c"],["hoogland","mats","d"],
+["ammann","pibbss","c"],["openphil","pibbss","f"],
+["pibbss","simplex","d"],
+["lifland","aifutures","c"],["romeodean","aifutures","c"],
+["lifland","constellation","e"],["romeodean","constellation","e"],
+["kokotajlo","constellation","e"],
+["bhatt","constellation","e"],["bhatt","redwood","e"],["bhatt","shlegeris","d"],
+["karnofsky","givewell","c"],["hassenfeld","givewell","c"],["givewell","goodventures","d"],["givewell","openphil","d"],
+["galef","cfar","c"],["salamon","cfar","c"],["salamon","siai","e"],
+["balwit","anthropic","e"],["balwit","aschenbrenner","m"],["balwit","ftx","e"],
+["balaji","openai","e"],
+["friedman","conjecture","f"],["collison","conjecture","f"],["collison","openai","d"],
+["kidd","lisa","c"],["csmith","lisa","c"],["seri","mats","d"],["kidd","seri","d"]
 ];
 const EDGE_STYLE = {
   c:{color:"#0A1A2F",width:2.5,dashes:false},
@@ -754,7 +892,7 @@ PEOPLE.forEach(([id,name,kind,role,card])=>{
   const fallback = initialsSVG(name, kind==="f" ? "#2E9E6B" : "#1D5A8A");
   nodes.push({
     id, label:name.split(" ").pop(), shape:"circularImage",
-    image: LOCAL[id] ? "assets/"+LOCAL[id] : (PHOTOS[id] ? wiki(PHOTOS[id]) : fallback),
+    image: resolveImg(id, kind, fallback),
     brokenImage: fallback,
     size:22, borderWidth: kind==="f"?4:2,
     color:{border: kind==="f" ? "#2E9E6B" : "#1D5A8A", background:"#FFFFFF"},
@@ -764,11 +902,11 @@ PEOPLE.forEach(([id,name,kind,role,card])=>{
 });
 const monoSVG = m => "data:image/svg+xml;utf8,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect x="10" y="10" width="180" height="180" rx="30" fill="#FFFFFF" stroke="#1D5A8A" stroke-width="10"/><text x="100" y="'+(m.length>2?118:126)+'" font-size="'+(m.length>3?52:(m.length>2?62:78))+'" font-weight="bold" text-anchor="middle" fill="#1D5A8A" font-family="Helvetica,Arial">'+m+'</text></svg>');
 ORGS.forEach(([id,label,full,mono])=>{
-  PERSON[id]={name:full,role:"Organization",card:full,kind:"o",mono};
+  PERSON[id]={name:label,role:"Organization",card:full,kind:"o",mono};
   const fallback = monoSVG(mono);
   nodes.push({
     id, label, shape:"image",
-    image: LOCAL[id] ? "assets/"+LOCAL[id] : (LOGOS[id] ? wiki(LOGOS[id]) : fallback),
+    image: resolveImg(id, "o", fallback),
     brokenImage: fallback,
     size:24,
     font:{color:"#0A1A2F", size:13, face:"Helvetica"},
@@ -786,7 +924,7 @@ const edgeDS = new vis.DataSet(edges);
 const network = new vis.Network(document.getElementById("network"),
   {nodes:nodeDS, edges:edgeDS},
   {physics:{barnesHut:{gravitationalConstant:-2600, springLength:110, springConstant:.03, avoidOverlap:.4}, stabilization:{iterations:250}},
-   interaction:{hover:true, tooltipDelay:150, zoomView:true, dragView:true},
+   interaction:{hover:true, tooltipDelay:150, zoomView:true, dragView:true, hideEdgesOnDrag:true, hideEdgesOnZoom:true},
    layout:{improvedLayout:true}});
 
 /* ═══════════════ FOCUS / DIM ═══════════════ */
@@ -800,7 +938,7 @@ function applyFocus(ids){
     const on = set.has(e.from)&&set.has(e.to);
     return {id:e.id, color:{color:e.color.color, opacity:on?.95:.05}};
   }));
-  if(ids.length) network.fit({nodes:ids, animation:{duration:700, easingFunction:"easeInOutQuad"}});
+  if(ids.length) network.fit({nodes:ids, animation:{duration:550, easingFunction:"easeInOutQuad"}});
 }
 function resetFocus(){
   currentFocus=null;
@@ -829,9 +967,10 @@ function showCard(id){
   const img = document.getElementById("card-img");
   const fallback = p.kind==="o" ? monoSVG(p.mono||"?") : initialsSVG(p.name, p.kind==="f" ? "#2E9E6B" : "#1D5A8A");
   img.onerror = ()=>{ img.onerror=null; img.src=fallback; };
-  img.src = LOCAL[id] ? "assets/"+LOCAL[id]
-          : p.kind==="o" ? (LOGOS[id] ? wiki(LOGOS[id]) : fallback)
-                         : (PHOTOS[id] ? wiki(PHOTOS[id]) : fallback);
+  img.src = resolveImg(id, p.kind, fallback);
+  const link = document.getElementById("card-link");
+  if(LINKS[id]){ link.href = LINKS[id]; link.style.display = "inline-block"; }
+  else { link.style.display = "none"; }
   card.classList.add("open");
 }
 function closeCard(){ card.classList.remove("open"); network.unselectAll(); }
@@ -846,7 +985,7 @@ document.querySelectorAll("img[data-photo]").forEach(img=>{
   const id = img.dataset.photo, p = PERSON[id];
   const fb = initialsSVG(p ? p.name : "?", p && p.kind==="f" ? "#2E9E6B" : "#1D5A8A");
   img.onerror = ()=>{ img.onerror=null; img.src=fb; };
-  img.src = LOCAL[id] ? "assets/"+LOCAL[id] : (PHOTOS[id] ? wiki(PHOTOS[id]) : fb);
+  img.src = resolveImg(id, p ? p.kind : "p", fb);
 });
 
 /* clear vis-network's hover tooltip if it gets stranded on screen during a scroll-driven re-layout */
@@ -876,6 +1015,7 @@ const io = new IntersectionObserver(entries=>{
 steps.forEach(s=>io.observe(s));
 
 network.once("stabilizationIterationsDone", ()=>{
+  network.setOptions({physics:false});   // freeze layout so nodes stop trembling
   applyFocus(steps[0].dataset.focus.split(","));
   steps[0].classList.add("active");
 });
